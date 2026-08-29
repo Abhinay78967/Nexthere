@@ -8,7 +8,7 @@ export function OrganizationSchema({ profile, settings }: { profile: CompanyProf
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": profile.legalName || settings?.siteName || "NextHere",
-    "url": process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+    "url": process.env.NEXT_PUBLIC_APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://nexthere-web.vercel.app"),
     "logo": settings?.logo?.url || undefined,
     "description": profile.shortDescription || undefined,
     "contactPoint": profile.primaryPhone || profile.primaryEmail ? [{

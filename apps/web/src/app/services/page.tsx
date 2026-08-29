@@ -8,7 +8,7 @@ import { ServiceBase } from '@/types/base';
 
 export const metadata = {
   title: 'Our Services | NextHere Services',
-  description: 'IT consultancy, electrical infrastructure installation, and motorised road freight logistics — as registered in our Memorandum of Association.',
+  description: 'Integrated enterprise solutions across IT consultancy, commercial electrical installations, and nationwide road freight logistics.',
 };
 
 const CATEGORY_IMAGES: Record<string, string> = {
@@ -50,7 +50,7 @@ export default async function ServicesPage() {
             Integrated Services Across IT, Electrical & Logistics
           </h1>
           <p className="text-lg text-gray-300 max-w-2xl">
-            NextHere Services Private Limited delivers three core service pillars registered under our Memorandum of Association — built to serve commercial, industrial, and institutional clients.
+            NextHere Services Private Limited delivers three core service pillars — built to streamline operations and provide end-to-end reliability for commercial, industrial, and institutional clients.
           </p>
         </Container>
       </div>

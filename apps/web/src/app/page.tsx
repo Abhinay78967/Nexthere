@@ -47,8 +47,8 @@ export default async function HomePage() {
   const TRUST_BADGES = [
     { label: 'MCA Registered', icon: '🏛️' },
     { label: 'ISO Committed', icon: '✅' },
-    { label: 'Law Compliant', icon: '⚖️' },
-    { label: 'Pan-India Ops', icon: '🇮🇳' },
+    { label: 'Enterprise SLA', icon: '⚡' },
+    { label: 'Pan-India Reach', icon: '🇮🇳' },
   ];
 
   return (
@@ -73,7 +73,7 @@ export default async function HomePage() {
           <div className="max-w-3xl space-y-6">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 text-white/80 text-xs font-semibold uppercase tracking-widest">
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              MCA Registered · New Delhi, India
+              Enterprise Solutions · New Delhi, India
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight">
               Technology.<br />
