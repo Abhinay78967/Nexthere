@@ -1,0 +1,23 @@
+{
+  "name": "@nexthere/database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"No tests defined\" && exit 0",
+    "postinstall": "prisma generate || exit 0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^26.3.0",
+    "prisma": "5",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@prisma/client": "5"
+  }
+}

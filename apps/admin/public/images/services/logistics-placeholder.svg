@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#0A2540" />
+  <g stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none" stroke-linejoin="round">
+    <path d="M100,500 L100,100 L300,300 L500,100 L700,300 L700,500" />
+    <circle cx="300" cy="300" r="10" fill="#333333" stroke="rgba(255,255,255,0.4)" />
+    <circle cx="500" cy="100" r="10" fill="#333333" stroke="rgba(255,255,255,0.4)" />
+    <path d="M100,500 L700,500" stroke-dasharray="10,10"/>
+  </g>
+</svg>

@@ -1,0 +1,58 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+
+# Prisma
+packages/database/prisma/migrations/*.sql
+!packages/database/prisma/migrations/
+
+# Environment files — NEVER commit these
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Turbo
+.turbo/
+
+# Temp / scratch files
+fix-*.js
+api-script*.js
+script.js
+search.js
+test.js
+temp_*.html
+payload_valid.json
+response.json
+Logo.jpeg
+
+# Vercel
+.vercel/
+
+# Testing
+coverage/
+.nyc_output/

@@ -1,0 +1,9 @@
+{
+  "name": "@nexthere/config",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "eslint-config-next": "^15.0.0",
+    "eslint-config-prettier": "^10.0.0"
+  }
+}
