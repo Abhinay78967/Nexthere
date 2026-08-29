@@ -12,7 +12,7 @@ interface ServiceBase {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://nexthere-web.vercel.app');
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://nexthere-web.vercel.app';
 
   const [servicesRes, industriesRes, projectsRes, insightsRes] = await Promise.all([
     fetchServices(),

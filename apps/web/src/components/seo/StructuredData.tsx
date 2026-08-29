@@ -1,7 +1,7 @@
 import React from 'react';
 import { CompanyProfile, SiteSettings } from '@/types/company';
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://nexthere-web.vercel.app');
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://nexthere-web.vercel.app';
 
 export function OrganizationSchema({ profile, settings }: { profile?: CompanyProfile | null; settings?: SiteSettings | null }) {
   const jsonLd = {
