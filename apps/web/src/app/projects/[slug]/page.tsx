@@ -28,7 +28,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
   const project = res.data;
   const imgSrc = (project.coverMedia as any)?.url ||
-    'https://images.unsplash.com/photo-1541888087616-5ca7336fbf43?q=80&w=1920&auto=format&fit=crop';
+    'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1920&auto=format&fit=crop';
 
   return (
     <div className="bg-background min-h-screen">

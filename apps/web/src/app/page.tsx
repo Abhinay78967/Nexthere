@@ -86,13 +86,13 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <Link
                 href="/contact"
-                className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-semibold text-white shadow-lg hover:bg-primary/90 transition-colors"
+                className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-8 text-base font-bold text-slate-950 shadow-xl hover:bg-gray-100 transition-all active:scale-[0.98]"
               >
                 Request a Consultation
               </Link>
               <Link
                 href="/services"
-                className="inline-flex h-12 items-center justify-center rounded-md border border-white/30 bg-white/10 backdrop-blur-sm px-8 text-base font-semibold text-white hover:bg-white/20 transition-colors"
+                className="inline-flex h-12 items-center justify-center rounded-xl border border-white/40 bg-white/10 backdrop-blur-md px-8 text-base font-semibold text-white hover:bg-white/20 transition-all active:scale-[0.98]"
               >
                 Explore Our Services
               </Link>
