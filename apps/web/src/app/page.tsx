@@ -209,7 +209,7 @@ export default async function HomePage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {projects.slice(0, 2).map((p: Project) => {
-                const imgSrc = (p.coverMedia as any)?.url || 'https://images.unsplash.com/photo-1541888087616-5ca7336fbf43?q=80&w=800&auto=format&fit=crop';
+                const imgSrc = (p.coverMedia as any)?.url || 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop';
                 return (
                   <Link key={p.id} href={`/projects/${p.slug}`} className="group block bg-surface rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div className="relative w-full aspect-[16/9] overflow-hidden">
@@ -307,8 +307,8 @@ export default async function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link
-                href="/contact"
-                className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-base font-semibold text-brand-navy hover:bg-gray-100 transition-colors"
+                href="/request-quote"
+                className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-base font-bold text-slate-950 hover:bg-gray-100 transition-colors shadow-lg"
               >
                 Request a Quote
               </Link>

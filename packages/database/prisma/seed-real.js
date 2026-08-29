@@ -189,7 +189,7 @@ async function main() {
       challenge: 'A newly constructed educational campus required a unified approach to their IT network rollout and campus-wide electrical power distribution.',
       solution: 'NextHere Services deployed a synchronized team to install main control panels, campus cabling, and establish a managed IT software environment.',
       results: 'Successfully commissioned all systems 2 weeks ahead of schedule with 100% compliance to applicable electrical safety laws.',
-      coverMedia: { url: 'https://images.unsplash.com/photo-1541888087616-5ca7336fbf43?q=80&w=800&auto=format&fit=crop' }
+      coverMedia: { url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop' }
     }
   });
 

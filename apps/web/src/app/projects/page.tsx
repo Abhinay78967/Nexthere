@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 const FALLBACK_IMAGES: string[] = [
-  'https://images.unsplash.com/photo-1541888087616-5ca7336fbf43?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop',
 ];
@@ -27,7 +27,7 @@ export default async function ProjectsPage() {
         <div className="absolute inset-0 bg-brand-navy" />
         <div className="absolute inset-0 opacity-20">
           <Image
-            src="https://images.unsplash.com/photo-1541888087616-5ca7336fbf43?q=80&w=1920&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1920&auto=format&fit=crop"
             alt="NextHere Projects"
             fill
             className="object-cover"
