@@ -29,8 +29,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Generate Prisma client
-        run: pnpm --filter @nexthere/database exec prisma generate
+      - name: Generate Prisma client & build database types
+        run: |
+          pnpm --filter @nexthere/database exec prisma generate
+          pnpm --filter @nexthere/database build
 
       - name: Typecheck all apps
         run: pnpm turbo typecheck
