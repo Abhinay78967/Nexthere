@@ -1,11 +1,26 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { createClient } from '../../lib/supabase/client';
 import { useRouter } from 'next/navigation';
-import { LogOut, Bell } from 'lucide-react';
+import { LogOut, ExternalLink, Shield, User } from 'lucide-react';
 
 export function Topbar() {
   const router = useRouter();
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user?.email) {
+          setUserEmail(user.email);
+        }
+      } catch {}
+    };
+    fetchUser();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -18,24 +33,44 @@ export function Topbar() {
     router.refresh();
   };
 
+  const publicSiteUrl = process.env.NEXT_PUBLIC_PUBLIC_SITE_URL || 'https://nexthere-web.vercel.app';
+
   return (
-    <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow-sm border-b border-gray-200">
-      <div className="flex flex-1 justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-1 items-center">
-          <h1 className="text-xl font-semibold text-gray-900 tracking-tight"></h1>
+    <div className="sticky top-0 z-20 flex h-16 flex-shrink-0 bg-white shadow-xs border-b border-slate-200">
+      <div className="flex flex-1 justify-between items-center px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
+            NextHere Control Plane
+          </span>
         </div>
-        <div className="ml-4 flex items-center md:ml-6 space-x-4">
-          <button className="text-gray-400 hover:text-gray-500 transition-colors">
-            <Bell className="h-6 w-6" />
-          </button>
-          
-          <div className="h-8 w-px bg-gray-200" aria-hidden="true" />
-          
+        <div className="ml-4 flex items-center space-x-3">
+          {/* Live Website Link */}
+          <a
+            href={publicSiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 border border-slate-200 transition-colors"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+            <span>Public Website (Live)</span>
+          </a>
+
+          <div className="h-6 w-px bg-slate-200" aria-hidden="true" />
+
+          {/* User Badge */}
+          {userEmail && (
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-100 text-xs font-medium text-blue-900">
+              <Shield className="w-3.5 h-3.5 text-blue-600" />
+              <span>{userEmail}</span>
+            </div>
+          )}
+
+          {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="group flex items-center space-x-2 rounded-full bg-white px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 border border-rose-200/60 transition-colors"
           >
-            <LogOut className="h-4 w-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+            <LogOut className="h-3.5 w-3.5" />
             <span>Sign out</span>
           </button>
         </div>

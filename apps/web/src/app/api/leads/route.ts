@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@nexthere/database';
+import { supabase } from '@/lib/supabase-client';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
   try {
@@ -10,8 +12,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true, data: { received: true } });
     }
 
-    const lead = await prisma.lead.create({
-      data: {
+    const { data: lead, error } = await supabase
+      .from('Lead')
+      .insert({
+        id: crypto.randomUUID(),
         name: body.name,
         companyName: body.companyName || null,
         email: body.email,
@@ -20,8 +24,12 @@ export async function POST(req: Request) {
         source: body.source || 'WEBSITE',
         status: 'NEW',
         priority: 'MEDIUM',
-      },
-    });
+        updatedAt: new Date().toISOString(),
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
 
     return NextResponse.json({ success: true, data: lead });
   } catch (err: any) {

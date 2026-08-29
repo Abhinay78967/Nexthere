@@ -84,7 +84,7 @@ export default function DashboardPage() {
             View Leads
           </Link>
           <a
-            href="http://localhost:3000"
+            href={process.env.NEXT_PUBLIC_PUBLIC_SITE_URL || "https://nexthere-web.vercel.app"}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-semibold border border-white/20 transition-all"
