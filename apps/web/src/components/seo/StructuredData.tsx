@@ -57,6 +57,11 @@ export function OrganizationSchema({ profile, settings }: { profile?: CompanyPro
         },
       },
     ],
+    sameAs: [
+      'https://www.linkedin.com/company/nexthere-services',
+      'https://twitter.com/NextHereService',
+      'https://wa.me/919472957044',
+    ],
   };
 
   return (
