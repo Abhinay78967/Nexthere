@@ -16,7 +16,8 @@ import {
   Building, 
   X,
   Send,
-  Calendar
+  Calendar,
+  Download
 } from 'lucide-react';
 
 export default function LeadsPage() {
@@ -220,6 +221,33 @@ export default function LeadsPage() {
     }
   };
 
+  const exportToCSV = () => {
+    if (leads.length === 0) {
+      alert('No leads available to export.');
+      return;
+    }
+    const headers = ['Name', 'Email', 'Phone', 'Company', 'Status', 'Priority', 'Source', 'Inquiries Count', 'Created Date'];
+    const rows = leads.map((l) => [
+      `"${(l.name || '').replace(/"/g, '""')}"`,
+      `"${(l.email || '').replace(/"/g, '""')}"`,
+      `"${(l.phone || '').replace(/"/g, '""')}"`,
+      `"${(l.companyName || '').replace(/"/g, '""')}"`,
+      `"${l.status || ''}"`,
+      `"${l.priority || ''}"`,
+      `"${l.source || ''}"`,
+      `"${l.inquiries?.length || 0}"`,
+      `"${new Date(l.createdAt).toLocaleDateString()}"`,
+    ]);
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `nexthere-leads-${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12">
       {/* Header */}
@@ -233,13 +261,22 @@ export default function LeadsPage() {
             Track and manage all customer quotation inquiries, project consultation requests, and business opportunities.
           </p>
         </div>
-        <button
-          onClick={() => setIsAddModalOpen(true)}
-          className="mt-4 sm:mt-0 inline-flex items-center px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold shadow-sm transition-all"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Add Lead Manually
-        </button>
+        <div className="mt-4 sm:mt-0 flex flex-wrap gap-2.5">
+          <button
+            onClick={exportToCSV}
+            className="inline-flex items-center px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-sm font-semibold shadow-xs transition-all"
+          >
+            <Download className="w-4 h-4 mr-2 text-slate-500" />
+            Export CSV
+          </button>
+          <button
+            onClick={() => setIsAddModalOpen(true)}
+            className="inline-flex items-center px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold shadow-sm transition-all"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add Lead Manually
+          </button>
+        </div>
       </div>
 
       {/* Filter and Search Bar */}

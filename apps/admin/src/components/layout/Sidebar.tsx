@@ -28,22 +28,22 @@ export function Sidebar() {
         </span>
       </div>
       <div className="flex flex-1 flex-col overflow-y-auto px-3 py-4">
-        <nav className="flex-1 space-y-1">
+        <nav className="flex-1 space-y-1.5">
           {navigation.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
             return (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 ease-in-out ${
+                className={`group flex items-center rounded-xl px-3.5 py-2.5 text-sm font-semibold transition-all duration-200 ${
                   isActive
-                    ? 'bg-blue-600/10 text-blue-400'
-                    : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-900/40'
+                    : 'text-slate-400 hover:bg-slate-800/70 hover:text-slate-200'
                 }`}
               >
                 <item.icon
                   className={`mr-3 h-5 w-5 flex-shrink-0 transition-colors ${
-                    isActive ? 'text-blue-500' : 'text-slate-500 group-hover:text-slate-300'
+                    isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'
                   }`}
                   aria-hidden="true"
                 />

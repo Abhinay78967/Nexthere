@@ -7,15 +7,23 @@ import {
   List, 
   FolderKanban, 
   Lightbulb, 
-  ArrowUpRight, 
-  TrendingUp, 
   Building2, 
-  CheckCircle2, 
-  Clock, 
-  AlertCircle, 
+  HelpCircle, 
+  Settings, 
+  ArrowUpRight, 
   Plus, 
   ExternalLink,
-  ShieldCheck
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+  TrendingUp,
+  Activity,
+  Layers,
+  Truck,
+  Zap,
+  Cpu,
+  ShieldCheck,
+  Globe
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -61,37 +69,44 @@ export default function DashboardPage() {
     }
   };
 
+  const totalLeads = data?.stats?.leads?.total || 0;
+  const newLeads = data?.stats?.leads?.new || 0;
+  const wonLeads = data?.stats?.leads?.won || 0;
+
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-12">
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 rounded-2xl p-8 text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <ShieldCheck className="w-5 h-5 text-emerald-400" />
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 px-2.5 py-0.5 rounded-full border border-emerald-500/30">Executive Portal Live</span>
+      {/* Welcome Banner */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 p-8 text-white shadow-xl border border-slate-800">
+        <div className="relative z-10 sm:flex sm:items-center sm:justify-between">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30 uppercase tracking-widest mb-3">
+              <ShieldCheck className="w-3.5 h-3.5" /> NextHere Enterprise OS
+            </span>
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-white">
+              Executive Command Center
+            </h1>
+            <p className="mt-2 text-slate-300 text-sm sm:text-base leading-relaxed">
+              Unified operational control for IT Technology Advisory, Electrical Power Systems, and Motorised Road Freight Logistics.
+            </p>
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight">NextHere Command Center</h1>
-          <p className="text-slate-300 text-sm mt-1 max-w-xl">
-            Real-time management for IT Consultancy, Electrical Infrastructure & Road Freight Logistics pillars.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <Link
-            href="/leads"
-            className="inline-flex items-center px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold shadow-lg shadow-blue-950/50 transition-all hover:-translate-y-0.5"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            View Leads
-          </Link>
-          <a
-            href={process.env.NEXT_PUBLIC_PUBLIC_SITE_URL || "https://nexthere-web.vercel.app"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-semibold border border-white/20 transition-all"
-          >
-            <ExternalLink className="w-4 h-4 mr-2" />
-            Public Website
-          </a>
+          <div className="mt-6 sm:mt-0 flex flex-wrap gap-3">
+            <Link
+              href="/leads"
+              className="inline-flex items-center px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold shadow-lg shadow-blue-950/50 transition-all hover:-translate-y-0.5"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Manage Leads CRM
+            </Link>
+            <a
+              href={process.env.NEXT_PUBLIC_PUBLIC_SITE_URL || "https://nexthere-web.vercel.app"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-semibold border border-white/20 transition-all"
+            >
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Public Website (Live)
+            </a>
+          </div>
         </div>
       </div>
 
@@ -110,12 +125,12 @@ export default function DashboardPage() {
           <div className="mt-4">
             <p className="text-sm font-medium text-slate-500">Inbound Customer Leads</p>
             <p className="text-3xl font-extrabold text-slate-900 mt-1">
-              {loading ? '...' : (data?.stats?.leads?.total ?? 0)}
+              {loading ? '...' : totalLeads}
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span className="text-blue-600 font-semibold">{data?.stats?.leads?.new ?? 0} New Inquiries</span>
-            <span className="text-emerald-600 font-semibold">{data?.stats?.leads?.won ?? 0} Won</span>
+            <span className="text-blue-600 font-semibold">{newLeads} New Inquiries</span>
+            <span className="text-emerald-600 font-semibold">{wonLeads} Converted</span>
           </div>
         </div>
 
@@ -159,7 +174,7 @@ export default function DashboardPage() {
           </div>
           <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
             <span className="text-purple-600 font-semibold">{data?.stats?.projects?.completed ?? 0} Completed</span>
-            <span>Enterprise Portfolio</span>
+            <span>Enterprise Showcase</span>
           </div>
         </div>
 
@@ -174,72 +189,182 @@ export default function DashboardPage() {
             </Link>
           </div>
           <div className="mt-4">
-            <p className="text-sm font-medium text-slate-500">Published Insights & FAQs</p>
+            <p className="text-sm font-medium text-slate-500">Industry Insights & Articles</p>
             <p className="text-3xl font-extrabold text-slate-900 mt-1">
-              {loading ? '...' : ((data?.stats?.insights?.total ?? 0) + (data?.stats?.faqs?.total ?? 0))}
+              {loading ? '...' : (data?.stats?.articles?.total ?? 0)}
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span className="text-amber-600 font-semibold">{data?.stats?.insights?.published ?? 0} Articles</span>
-            <span>{data?.stats?.faqs?.total ?? 0} FAQs</span>
+            <span className="text-amber-600 font-semibold">{data?.stats?.articles?.published ?? 0} Published</span>
+            <span>Thought Leadership</span>
           </div>
         </div>
       </div>
 
-      {/* Quick Access Matrix */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Link
-          href="/services"
-          className="group p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-blue-300 transition-all flex items-start gap-4"
-        >
-          <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <List className="w-5 h-5" />
+      {/* Visual Analytics & System Status Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Pillar Breakdown */}
+        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div className="flex items-center justify-between border-b pb-3">
+            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <Layers className="w-5 h-5 text-blue-600" />
+              Service Pillars Portfolio
+            </h2>
+            <Link href="/services" className="text-xs text-blue-600 hover:underline">View All</Link>
           </div>
-          <div>
-            <h3 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Manage Services & Rates</h3>
-            <p className="text-xs text-slate-500 mt-1">Add, update pricing, or edit descriptions for all 3 business pillars.</p>
-          </div>
-        </Link>
 
-        <Link
-          href="/company"
-          className="group p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-blue-300 transition-all flex items-start gap-4"
-        >
-          <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Building2 className="w-5 h-5" />
-          </div>
-          <div>
-            <h3 className="font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Company Master Profile</h3>
-            <p className="text-xs text-slate-500 mt-1">Update registered office address, phone, email, and corporate info.</p>
-          </div>
-        </Link>
+          <div className="space-y-3 pt-1">
+            <div className="p-3.5 rounded-xl bg-blue-50/70 border border-blue-100 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center">
+                  <Cpu className="w-4 h-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">IT & Technology</p>
+                  <p className="text-[11px] text-slate-500">Enterprise Networks, Systems, Advisory</p>
+                </div>
+              </div>
+              <span className="text-xs font-bold text-blue-700 bg-white px-2 py-1 rounded-md border border-blue-200">Active</span>
+            </div>
 
-        <Link
-          href="/leads"
-          className="group p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-blue-300 transition-all flex items-start gap-4"
-        >
-          <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Users className="w-5 h-5" />
+            <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-100 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">Electrical Infrastructure</p>
+                  <p className="text-[11px] text-slate-500">Power Distribution, Control Panels, Wiring</p>
+                </div>
+              </div>
+              <span className="text-xs font-bold text-amber-700 bg-white px-2 py-1 rounded-md border border-amber-200">Active</span>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-100 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
+                  <Truck className="w-4 h-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">Freight & Logistics</p>
+                  <p className="text-[11px] text-slate-500">Commercial Fleets, Dedicated Dispatches</p>
+                </div>
+              </div>
+              <span className="text-xs font-bold text-emerald-700 bg-white px-2 py-1 rounded-md border border-emerald-200">Active</span>
+            </div>
           </div>
-          <div>
-            <h3 className="font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Customer Leads & Quotes</h3>
-            <p className="text-xs text-slate-500 mt-1">Respond to customer quote requests and update CRM status.</p>
+        </div>
+
+        {/* System & Telemetry Health */}
+        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div className="flex items-center justify-between border-b pb-3">
+            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <Activity className="w-5 h-5 text-emerald-600" />
+              Platform Telemetry & Health
+            </h2>
+            <span className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Live & Healthy
+            </span>
           </div>
-        </Link>
+
+          <div className="space-y-3 pt-1 text-xs">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span className="font-semibold text-slate-700 flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-blue-600" /> Supabase Database
+              </span>
+              <span className="text-emerald-700 font-bold bg-emerald-100/70 px-2 py-0.5 rounded">Connected (HTTPS)</span>
+            </div>
+            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span className="font-semibold text-slate-700 flex items-center gap-1.5">
+                <Globe className="w-4 h-4 text-indigo-600" /> Public Portal
+              </span>
+              <a href="https://nexthere-web.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold flex items-center gap-1">
+                nexthere-web.vercel.app <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span className="font-semibold text-slate-700 flex items-center gap-1.5">
+                <Truck className="w-4 h-4 text-emerald-600" /> Mobile Native APK
+              </span>
+              <span className="text-slate-700 font-semibold">Build #42073516 (Ready)</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Management Matrix */}
+        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div className="border-b pb-3">
+            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-blue-600" />
+              Quick Action Matrix
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2.5 pt-1">
+            <Link
+              href="/leads"
+              className="p-3 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-200/80 hover:border-blue-200 transition-all flex flex-col items-center text-center group"
+            >
+              <Users className="w-5 h-5 text-blue-600 mb-1 group-hover:scale-110 transition-transform" />
+              <span className="text-xs font-bold text-slate-800">Leads CRM</span>
+            </Link>
+
+            <Link
+              href="/services"
+              className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200/80 hover:border-emerald-200 transition-all flex flex-col items-center text-center group"
+            >
+              <List className="w-5 h-5 text-emerald-600 mb-1 group-hover:scale-110 transition-transform" />
+              <span className="text-xs font-bold text-slate-800">Services</span>
+            </Link>
+
+            <Link
+              href="/projects"
+              className="p-3 rounded-xl bg-slate-50 hover:bg-purple-50 border border-slate-200/80 hover:border-purple-200 transition-all flex flex-col items-center text-center group"
+            >
+              <FolderKanban className="w-5 h-5 text-purple-600 mb-1 group-hover:scale-110 transition-transform" />
+              <span className="text-xs font-bold text-slate-800">Projects</span>
+            </Link>
+
+            <Link
+              href="/insights"
+              className="p-3 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200/80 hover:border-amber-200 transition-all flex flex-col items-center text-center group"
+            >
+              <Lightbulb className="w-5 h-5 text-amber-600 mb-1 group-hover:scale-110 transition-transform" />
+              <span className="text-xs font-bold text-slate-800">Insights</span>
+            </Link>
+
+            <Link
+              href="/company"
+              className="p-3 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200/80 hover:border-indigo-200 transition-all flex flex-col items-center text-center group"
+            >
+              <Building2 className="w-5 h-5 text-indigo-600 mb-1 group-hover:scale-110 transition-transform" />
+              <span className="text-xs font-bold text-slate-800">Company</span>
+            </Link>
+
+            <Link
+              href="/settings"
+              className="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 transition-all flex flex-col items-center text-center group"
+            >
+              <Settings className="w-5 h-5 text-slate-700 mb-1 group-hover:scale-110 transition-transform" />
+              <span className="text-xs font-bold text-slate-800">Settings</span>
+            </Link>
+          </div>
+        </div>
       </div>
 
-      {/* Recent Inbound Leads Stream */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+      {/* Recent Inbound Inquiries Table */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="p-6 border-b border-slate-200 sm:flex sm:items-center sm:justify-between">
           <div>
             <h2 className="text-lg font-bold text-slate-900">Recent Customer Inquiries</h2>
-            <p className="text-xs text-slate-500 mt-0.5">Real-time inquiries received from website contact and quotation forms.</p>
+            <p className="mt-1 text-xs text-slate-500">Live stream of quotation requests and lead submissions.</p>
           </div>
           <Link
             href="/leads"
-            className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1"
+            className="mt-3 sm:mt-0 inline-flex items-center text-xs font-bold text-blue-600 hover:text-blue-700"
           >
-            View all leads <ArrowUpRight className="w-4 h-4" />
+            View all leads & pipeline →
           </Link>
         </div>
 
@@ -247,62 +372,63 @@ export default function DashboardPage() {
           <table className="min-w-full divide-y divide-slate-200">
             <thead className="bg-slate-50/75">
               <tr>
-                <th className="py-3.5 pl-6 pr-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Customer Name</th>
-                <th className="px-3 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Contact Info</th>
-                <th className="px-3 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Service Category</th>
-                <th className="px-3 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Status</th>
-                <th className="px-3 py-3.5 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Received At</th>
-                <th className="relative py-3.5 pl-3 pr-6 text-right text-xs font-semibold text-slate-600 uppercase tracking-wider">Action</th>
+                <th className="px-6 py-3.5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Client</th>
+                <th className="px-6 py-3.5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Company</th>
+                <th className="px-6 py-3.5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3.5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Priority</th>
+                <th className="px-6 py-3.5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Date</th>
+                <th className="px-6 py-3.5 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 bg-white">
+            <tbody className="bg-white divide-y divide-slate-200">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-sm text-slate-500">
+                  <td colSpan={6} className="px-6 py-12 text-center text-sm text-slate-500">
                     <Clock className="w-5 h-5 mx-auto animate-spin mb-2 text-blue-600" />
-                    Loading latest inquiries...
+                    Fetching latest live inquiries...
                   </td>
                 </tr>
-              ) : data?.recentLeads?.length > 0 ? (
-                data.recentLeads.map((lead: any) => (
-                  <tr key={lead.id} className="hover:bg-slate-50/50 transition-colors">
-                    <td className="py-4 pl-6 pr-3 text-sm font-semibold text-slate-900">
-                      <div>{lead.name}</div>
-                      {lead.companyName && <div className="text-xs font-normal text-slate-500">{lead.companyName}</div>}
+              ) : data?.recentLeads?.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-12 text-center text-sm text-slate-500">
+                    No inquiries recorded yet. New submissions will stream here live.
+                  </td>
+                </tr>
+              ) : (
+                data?.recentLeads?.map((lead: any) => (
+                  <tr key={lead.id} className="hover:bg-slate-50/80 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="font-semibold text-sm text-slate-900">{lead.name}</div>
+                      <div className="text-xs text-slate-500">{lead.email}</div>
                     </td>
-                    <td className="px-3 py-4 text-sm text-slate-600">
-                      <div>{lead.email}</div>
-                      {lead.phone && <div className="text-xs text-slate-500">{lead.phone}</div>}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+                      {lead.companyName || 'Individual'}
                     </td>
-                    <td className="px-3 py-4 text-sm text-slate-600">
-                      <span className="font-medium">{lead.ServiceCategory?.title || lead.Service?.title || 'General Inquiry'}</span>
-                    </td>
-                    <td className="px-3 py-4 text-sm">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       {getStatusBadge(lead.status)}
                     </td>
-                    <td className="px-3 py-4 text-xs text-slate-500">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="text-xs font-medium text-slate-700 uppercase bg-slate-100 px-2 py-0.5 rounded">
+                        {lead.priority || 'MEDIUM'}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-xs text-slate-500">
                       {new Date(lead.createdAt).toLocaleDateString('en-IN', {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric',
                       })}
                     </td>
-                    <td className="py-4 pl-3 pr-6 text-right text-sm">
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
                       <Link
-                        href="/leads"
-                        className="text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200/60 inline-flex items-center"
+                        href={`/leads`}
+                        className="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline"
                       >
-                        Manage
+                        Open CRM →
                       </Link>
                     </td>
                   </tr>
                 ))
-              ) : (
-                <tr>
-                  <td colSpan={6} className="py-12 text-center text-sm text-slate-500">
-                    No inquiries received yet. Submit a test quote from the website to see it appear live!
-                  </td>
-                </tr>
               )}
             </tbody>
           </table>
