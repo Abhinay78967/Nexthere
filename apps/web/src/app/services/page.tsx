@@ -5,10 +5,19 @@ import { Container } from '@nexthere/ui';
 import { fetchCategories } from '@/lib/api';
 import { ServiceCategory } from '@/types/serviceCategory';
 import { ServiceBase } from '@/types/base';
+import { BreadcrumbSchema } from '@/components/seo/StructuredData';
 
 export const metadata = {
   title: 'Our Services | NextHere Services',
   description: 'Integrated enterprise solutions across IT consultancy, commercial electrical installations, and nationwide road freight logistics.',
+  alternates: {
+    canonical: '/services',
+  },
+  openGraph: {
+    title: 'Our Services | NextHere Services',
+    description: 'Integrated enterprise solutions across IT consultancy, commercial electrical installations, and nationwide road freight logistics.',
+    url: '/services',
+  },
 };
 
 const CATEGORY_IMAGES: Record<string, string> = {
@@ -32,6 +41,7 @@ export default async function ServicesPage() {
 
   return (
     <div className="bg-background min-h-screen">
+      <BreadcrumbSchema items={[{ name: 'Home', item: '/' }, { name: 'Services', item: '/services' }]} />
       {/* Hero */}
       <div className="relative border-b border-border overflow-hidden">
         <div className="absolute inset-0 bg-brand-navy" />

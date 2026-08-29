@@ -4,6 +4,9 @@ import { Container } from '@nexthere/ui';
 export const metadata = {
   title: 'Terms of Service | NextHere Services',
   description: 'Terms of Service of NextHere Services Private Limited.',
+  alternates: {
+    canonical: '/terms',
+  },
 };
 
 export default function TermsPage() {

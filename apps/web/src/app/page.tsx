@@ -1,23 +1,41 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { Container } from '@nexthere/ui';
-import { fetchIndustries, fetchProjects, fetchInsights, fetchCompany } from '@/lib/api';
+import { fetchIndustries, fetchProjects, fetchInsights, fetchCompany, fetchFaqs } from '@/lib/api';
 import { Industry } from '@/types/industry';
 import { Project } from '@/types/project';
 import { Insight } from '@/types/insight';
+import { FaqBase } from '@/types/base';
+import { FAQPageSchema } from '@/components/seo/StructuredData';
+
+export const metadata: Metadata = {
+  title: 'NextHere Services | Enterprise IT, Electrical Infrastructure & Logistics',
+  description: 'NextHere Services delivers integrated enterprise solutions across IT consultancy, commercial electrical installations, and motorised road freight logistics.',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'NextHere Services | Enterprise IT, Electrical & Logistics',
+    description: 'Integrated enterprise capabilities across technology, electrical infrastructure, and freight logistics.',
+    url: '/',
+  },
+};
 
 export default async function HomePage() {
-  const [industriesRes, projectsRes, insightsRes, companyRes] = await Promise.all([
+  const [industriesRes, projectsRes, insightsRes, companyRes, faqsRes] = await Promise.all([
     fetchIndustries(),
     fetchProjects(),
     fetchInsights(),
-    fetchCompany()
+    fetchCompany(),
+    fetchFaqs(),
   ]);
 
   const industries: Industry[] = industriesRes?.success ? industriesRes.data : [];
   const projects: Project[] = projectsRes?.success ? projectsRes.data : [];
   const insights: Insight[] = insightsRes?.success ? insightsRes.data : [];
+  const faqs: FaqBase[] = faqsRes?.success ? faqsRes.data : [];
   const profile = companyRes?.success && companyRes.data ? companyRes.data.profile : null;
 
   const SERVICES_SNAPSHOT = [
@@ -53,6 +71,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
+      {faqs.length > 0 && <FAQPageSchema faqs={faqs} />}
 
       {/* ───── HERO ───── */}
       <section className="relative w-full flex items-center justify-center min-h-[90vh] overflow-hidden">
@@ -282,6 +301,36 @@ export default async function HomePage() {
                   </Link>
                 );
               })}
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {/* ───── FAQS SECTION (FOR USERS & AI ANSWER ENGINES) ───── */}
+      {faqs.length > 0 && (
+        <section className="w-full py-20 md:py-32 border-b border-border bg-background">
+          <Container>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">Common Queries</p>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-muted-foreground mt-4 text-base">
+                Direct answers regarding our integrated IT capabilities, electrical engineering standards, and logistics fleet.
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto space-y-4">
+              {faqs.map((faq) => (
+                <div key={faq.id} className="p-6 bg-surface rounded-2xl border border-border shadow-sm space-y-2">
+                  <h3 className="text-lg font-bold text-foreground flex items-center gap-3">
+                    <span className="text-primary font-mono text-sm font-extrabold">Q:</span>
+                    {faq.question}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm pl-6">
+                    {faq.answer}
+                  </p>
+                </div>
+              ))}
             </div>
           </Container>
         </section>

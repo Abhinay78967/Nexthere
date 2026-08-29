@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { fetchCompany } from '@/lib/api';
 import { Container } from '@nexthere/ui';
-import { OrganizationSchema } from '@/components/seo/StructuredData';
+import { OrganizationSchema, BreadcrumbSchema } from '@/components/seo/StructuredData';
 
 export async function generateMetadata() {
   const companyData = await fetchCompany();
@@ -11,6 +11,14 @@ export async function generateMetadata() {
   return {
     title: `About Us | NextHere Services`,
     description: profile?.shortDescription || 'Learn about NextHere Services Private Limited — IT consultancy, electrical infrastructure, and logistics.',
+    alternates: {
+      canonical: '/about',
+    },
+    openGraph: {
+      title: 'About Us | NextHere Services',
+      description: profile?.shortDescription || 'Learn about NextHere Services Private Limited — IT consultancy, electrical infrastructure, and logistics.',
+      url: '/about',
+    },
   };
 }
 
@@ -35,6 +43,7 @@ export default async function AboutPage() {
 
   return (
     <>
+      <BreadcrumbSchema items={[{ name: 'Home', item: '/' }, { name: 'About Us', item: '/about' }]} />
       {profile && <OrganizationSchema profile={profile} settings={settings} />}
       <div className="bg-background min-h-screen">
 

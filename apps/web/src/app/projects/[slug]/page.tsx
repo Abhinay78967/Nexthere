@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { fetchProjectBySlug } from '@/lib/api';
 import { Container } from '@nexthere/ui';
 import { notFound } from 'next/navigation';
+import { BreadcrumbSchema, CaseStudySchema } from '@/components/seo/StructuredData';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
   const { slug } = await params;
@@ -12,6 +13,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${res.data.title} | NextHere Projects`,
     description: res.data.results || res.data.challenge || '',
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
+    openGraph: {
+      title: `${res.data.title} | NextHere Projects`,
+      description: res.data.results || res.data.challenge || '',
+      url: `/projects/${slug}`,
+    },
   };
 }
 
@@ -32,6 +41,20 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
   return (
     <div className="bg-background min-h-screen">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Projects', item: '/projects' },
+          { name: project.title, item: `/projects/${slug}` },
+        ]}
+      />
+      <CaseStudySchema
+        title={project.title}
+        description={project.results || project.challenge || project.title}
+        url={`/projects/${slug}`}
+        location={project.location || undefined}
+        results={project.results || undefined}
+      />
       {/* Hero */}
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: '21/9', maxHeight: 520 }}>
         <Image src={imgSrc} alt={project.title} fill className="object-cover" priority sizes="100vw" />

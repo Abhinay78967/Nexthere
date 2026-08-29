@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { fetchInsightBySlug } from '@/lib/api';
 import { Container } from '@nexthere/ui';
 import { notFound } from 'next/navigation';
+import { BreadcrumbSchema, ArticleSchema } from '@/components/seo/StructuredData';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
   const { slug } = await params;
@@ -12,6 +13,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${res.data.title} | NextHere Insights`,
     description: res.data.excerpt || '',
+    alternates: {
+      canonical: `/insights/${slug}`,
+    },
+    openGraph: {
+      title: `${res.data.title} | NextHere Insights`,
+      description: res.data.excerpt || '',
+      url: `/insights/${slug}`,
+    },
   };
 }
 
@@ -27,6 +36,21 @@ export default async function InsightDetailPage({ params }: { params: Promise<{ 
 
   return (
     <div className="bg-background min-h-screen">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Insights', item: '/insights' },
+          { name: article.title, item: `/insights/${slug}` },
+        ]}
+      />
+      <ArticleSchema
+        title={article.title}
+        description={article.excerpt || article.title}
+        url={`/insights/${slug}`}
+        image={imgSrc}
+        publishedAt={article.publishedAt ? new Date(article.publishedAt).toISOString() : undefined}
+        author={article.author || undefined}
+      />
       {/* Hero */}
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: '21/9', maxHeight: 480 }}>
         <Image src={imgSrc} alt={article.title} fill className="object-cover" priority sizes="100vw" />

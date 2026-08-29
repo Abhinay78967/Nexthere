@@ -4,10 +4,19 @@ import Link from 'next/link';
 import { Container } from '@nexthere/ui';
 import { fetchProjects } from '@/lib/api';
 import { Project } from '@/types/project';
+import { BreadcrumbSchema } from '@/components/seo/StructuredData';
 
 export const metadata = {
-  title: 'Projects | NextHere Services',
-  description: 'Verified case studies and infrastructure projects delivered by NextHere Services Private Limited.',
+  title: 'Projects & Case Studies | NextHere Services',
+  description: 'Verified case studies and infrastructure projects delivered by NextHere Services Private Limited across India.',
+  alternates: {
+    canonical: '/projects',
+  },
+  openGraph: {
+    title: 'Projects & Case Studies | NextHere Services',
+    description: 'Verified case studies and infrastructure projects delivered by NextHere Services Private Limited across India.',
+    url: '/projects',
+  },
 };
 
 const FALLBACK_IMAGES: string[] = [
@@ -22,6 +31,7 @@ export default async function ProjectsPage() {
 
   return (
     <div className="bg-background min-h-screen">
+      <BreadcrumbSchema items={[{ name: 'Home', item: '/' }, { name: 'Projects', item: '/projects' }]} />
       {/* Hero */}
       <div className="relative border-b border-border overflow-hidden">
         <div className="absolute inset-0 bg-brand-navy" />

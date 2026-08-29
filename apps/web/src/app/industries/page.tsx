@@ -4,10 +4,19 @@ import Link from 'next/link';
 import { Container } from '@nexthere/ui';
 import { fetchIndustries } from '@/lib/api';
 import { Industry } from '@/types/industry';
+import { BreadcrumbSchema } from '@/components/seo/StructuredData';
 
 export const metadata = {
   title: 'Industries We Serve | NextHere Services',
   description: 'Commercial, institutional, and industrial sector expertise from NextHere Services Private Limited.',
+  alternates: {
+    canonical: '/industries',
+  },
+  openGraph: {
+    title: 'Industries We Serve | NextHere Services',
+    description: 'Commercial, institutional, and industrial sector expertise from NextHere Services Private Limited.',
+    url: '/industries',
+  },
 };
 
 const FALLBACK_IMAGES: Record<string, string> = {
@@ -21,6 +30,7 @@ export default async function IndustriesPage() {
 
   return (
     <div className="bg-background min-h-screen">
+      <BreadcrumbSchema items={[{ name: 'Home', item: '/' }, { name: 'Industries', item: '/industries' }]} />
       {/* Hero */}
       <div className="relative border-b border-border overflow-hidden">
         <div className="absolute inset-0 bg-brand-navy" />

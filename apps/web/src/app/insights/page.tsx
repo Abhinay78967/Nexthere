@@ -4,10 +4,19 @@ import Link from 'next/link';
 import { Container } from '@nexthere/ui';
 import { fetchInsights } from '@/lib/api';
 import { Insight } from '@/types/insight';
+import { BreadcrumbSchema } from '@/components/seo/StructuredData';
 
 export const metadata = {
   title: 'Insights & Articles | NextHere Services',
-  description: 'Thought leadership, technical articles, and industry insights from NextHere Services.',
+  description: 'Thought leadership, technical articles, and industry insights on enterprise IT, electrical systems, and logistics from NextHere Services.',
+  alternates: {
+    canonical: '/insights',
+  },
+  openGraph: {
+    title: 'Insights & Articles | NextHere Services',
+    description: 'Thought leadership, technical articles, and industry insights on enterprise IT, electrical systems, and logistics from NextHere Services.',
+    url: '/insights',
+  },
 };
 
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop';
@@ -18,6 +27,7 @@ export default async function InsightsPage() {
 
   return (
     <div className="bg-background min-h-screen">
+      <BreadcrumbSchema items={[{ name: 'Home', item: '/' }, { name: 'Insights', item: '/insights' }]} />
       {/* Hero */}
       <div className="relative border-b border-border overflow-hidden">
         <div className="absolute inset-0 bg-brand-navy" />

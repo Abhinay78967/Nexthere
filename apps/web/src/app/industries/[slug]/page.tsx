@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { fetchIndustryBySlug } from '@/lib/api';
 import { Container } from '@nexthere/ui';
 import { notFound } from 'next/navigation';
+import { BreadcrumbSchema } from '@/components/seo/StructuredData';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
   const { slug } = await params;
@@ -12,6 +13,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${res.data.title} | NextHere Industries`,
     description: res.data.shortDescription || '',
+    alternates: {
+      canonical: `/industries/${slug}`,
+    },
+    openGraph: {
+      title: `${res.data.title} | NextHere Industries`,
+      description: res.data.shortDescription || '',
+      url: `/industries/${slug}`,
+    },
   };
 }
 
@@ -31,6 +40,13 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
 
   return (
     <div className="bg-background min-h-screen">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Industries', item: '/industries' },
+          { name: industry.title, item: `/industries/${slug}` },
+        ]}
+      />
       {/* Hero */}
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: '21/9', maxHeight: 480 }}>
         <Image src={imgSrc} alt={industry.title} fill className="object-cover" priority sizes="100vw" />

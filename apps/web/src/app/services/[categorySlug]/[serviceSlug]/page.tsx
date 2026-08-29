@@ -4,15 +4,24 @@ import { Container } from '@nexthere/ui';
 import { fetchServiceBySlug } from '../../../../lib/api';
 import { ServiceInquiryForm } from '../../../../components/forms/ServiceInquiryForm';
 import { OptimizedImage } from '../../../../components/media/OptimizedImage';
+import { BreadcrumbSchema, ServiceSchema } from '@/components/seo/StructuredData';
 
 export async function generateMetadata({ params }: { params: Promise<{ categorySlug: string; serviceSlug: string }> | { categorySlug: string; serviceSlug: string } }) {
-  const { serviceSlug } = await params;
+  const { categorySlug, serviceSlug } = await params;
   const res = await fetchServiceBySlug(serviceSlug);
   if (!res || !res.success) return { title: 'Service Not Found' };
   
   return {
-    title: `${res.data.title} | NextHere`,
+    title: `${res.data.title} | NextHere Services`,
     description: res.data.description,
+    alternates: {
+      canonical: `/services/${categorySlug}/${serviceSlug}`,
+    },
+    openGraph: {
+      title: `${res.data.title} | NextHere Services`,
+      description: res.data.description,
+      url: `/services/${categorySlug}/${serviceSlug}`,
+    },
   };
 }
 
@@ -37,8 +46,25 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
     altText: `${service.title} concept`
   };
 
+  const capabilities = Array.isArray(service.capabilities) ? service.capabilities : [];
+
   return (
     <article className="flex flex-col min-h-screen">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Services', item: '/services' },
+          { name: service.category?.title || 'Pillar', item: `/services/${categorySlug}` },
+          { name: service.title, item: `/services/${categorySlug}/${serviceSlug}` },
+        ]}
+      />
+      <ServiceSchema
+        title={service.title}
+        description={service.description || ''}
+        url={`/services/${categorySlug}/${serviceSlug}`}
+        category={service.category?.title || 'Enterprise Technical Service'}
+        capabilities={capabilities}
+      />
       {/* Hero Section */}
       <section className="relative bg-primary text-primary-foreground py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 z-0 hidden lg:block opacity-20 w-1/2 left-1/2">

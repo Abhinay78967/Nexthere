@@ -4,6 +4,9 @@ import { Container } from '@nexthere/ui';
 export const metadata = {
   title: 'Cookie Policy | NextHere Services',
   description: 'Cookie Policy of NextHere Services Private Limited.',
+  alternates: {
+    canonical: '/cookies',
+  },
 };
 
 export default function CookiesPage() {

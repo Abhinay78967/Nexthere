@@ -4,6 +4,9 @@ import { Container } from '@nexthere/ui';
 export const metadata = {
   title: 'Privacy Policy | NextHere Services',
   description: 'Privacy Policy of NextHere Services Private Limited — how we collect, use, and protect your data.',
+  alternates: {
+    canonical: '/privacy',
+  },
 };
 
 export default function PrivacyPage() {

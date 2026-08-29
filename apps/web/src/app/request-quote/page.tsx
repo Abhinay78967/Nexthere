@@ -2,14 +2,25 @@ import React from 'react';
 import { Container } from '@nexthere/ui';
 import { QuoteForm } from '@/components/forms/QuoteForm';
 
+import { BreadcrumbSchema } from '@/components/seo/StructuredData';
+
 export const metadata = {
-  title: 'Request a Quote | NextHere Services',
+  title: 'Request a Commercial Quote | NextHere Services',
   description: 'Request a customized commercial quote for IT consultancy, electrical installations, or road freight logistics.',
+  alternates: {
+    canonical: '/request-quote',
+  },
+  openGraph: {
+    title: 'Request a Commercial Quote | NextHere Services',
+    description: 'Request a customized commercial quote for IT consultancy, electrical installations, or road freight logistics.',
+    url: '/request-quote',
+  },
 };
 
 export default function RequestQuotePage() {
   return (
     <div className="bg-background min-h-screen">
+      <BreadcrumbSchema items={[{ name: 'Home', item: '/' }, { name: 'Request a Quote', item: '/request-quote' }]} />
       {/* Header */}
       <div className="border-b border-border bg-surface-muted/50 py-16 md:py-20">
         <Container className="text-center max-w-3xl">

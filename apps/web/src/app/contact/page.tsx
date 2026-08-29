@@ -3,9 +3,19 @@ import { Container } from '@nexthere/ui';
 import { ContactForm } from '@/components/forms/ContactForm';
 import { fetchCompany } from '@/lib/api';
 
+import { BreadcrumbSchema } from '@/components/seo/StructuredData';
+
 export const metadata = {
   title: 'Contact Us | NextHere Services',
-  description: 'Get in touch with NextHere Services Private Limited for IT consultancy, electrical installations, and freight logistics.',
+  description: 'Get in touch with NextHere Services Private Limited for IT consultancy, commercial electrical installations, and freight logistics inquiries.',
+  alternates: {
+    canonical: '/contact',
+  },
+  openGraph: {
+    title: 'Contact Us | NextHere Services',
+    description: 'Get in touch with NextHere Services Private Limited for IT consultancy, commercial electrical installations, and freight logistics inquiries.',
+    url: '/contact',
+  },
 };
 
 export default async function ContactPage() {
@@ -14,6 +24,7 @@ export default async function ContactPage() {
 
   return (
     <div className="bg-background min-h-screen">
+      <BreadcrumbSchema items={[{ name: 'Home', item: '/' }, { name: 'Contact Us', item: '/contact' }]} />
       {/* Header */}
       <div className="border-b border-border bg-surface-muted/50 py-16 md:py-20">
         <Container className="text-center max-w-3xl">

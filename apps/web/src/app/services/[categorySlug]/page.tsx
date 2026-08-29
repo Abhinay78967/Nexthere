@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { Container } from '@nexthere/ui';
 import { fetchCategories } from '@/lib/api';
 import { ServiceCategory } from '@/types/serviceCategory';
+import { BreadcrumbSchema, ServiceSchema } from '@/components/seo/StructuredData';
 
 interface ServiceBase { id: string; slug: string; title: string; description?: string; media?: unknown; }
 
@@ -17,6 +18,14 @@ export async function generateMetadata({ params }: { params: Promise<{ categoryS
   return {
     title: `${cat.title} | NextHere Services`,
     description: cat.description || '',
+    alternates: {
+      canonical: `/services/${categorySlug}`,
+    },
+    openGraph: {
+      title: `${cat.title} | NextHere Services`,
+      description: cat.description || '',
+      url: `/services/${categorySlug}`,
+    },
   };
 }
 
@@ -34,9 +43,24 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   if (!cat) notFound();
 
   const heroImg = (cat.media as any)?.url || CAT_IMAGES[categorySlug] || CAT_IMAGES['it-technology'];
+  const capabilities = cat.services?.map((s: any) => s.title) || [];
 
   return (
     <div className="bg-background min-h-screen">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', item: '/' },
+          { name: 'Services', item: '/services' },
+          { name: cat.title, item: `/services/${categorySlug}` },
+        ]}
+      />
+      <ServiceSchema
+        title={cat.title}
+        description={cat.description || ''}
+        url={`/services/${categorySlug}`}
+        category="Service Pillar"
+        capabilities={capabilities}
+      />
       {/* Hero */}
       <div className="relative border-b border-border overflow-hidden">
         <div className="absolute inset-0 bg-brand-navy" />
