@@ -37,9 +37,9 @@ export async function Header() {
                   ))
                 ) : (
                   <>
-                    <Link href="/services/it-services" className="block rounded p-2 hover:bg-muted">IT Infrastructure</Link>
-                    <Link href="/services/electrical-engineering" className="block rounded p-2 hover:bg-muted">Electrical</Link>
-                    <Link href="/services/global-logistics" className="block rounded p-2 hover:bg-muted">Logistics</Link>
+                    <Link href="/services/it-technology" className="block rounded p-2 hover:bg-muted text-foreground">IT & Technology Solutions</Link>
+                    <Link href="/services/electrical-infrastructure" className="block rounded p-2 hover:bg-muted text-foreground">Electrical Infrastructure</Link>
+                    <Link href="/services/freight-logistics" className="block rounded p-2 hover:bg-muted text-foreground">Freight & Logistics</Link>
                   </>
                 )}
               </div>
