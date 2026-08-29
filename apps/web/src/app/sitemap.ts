@@ -33,6 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/services/it-technology',
     '/services/electrical-infrastructure',
     '/services/freight-logistics',
+    '/logistics',
     '/industries',
     '/projects',
     '/insights',
