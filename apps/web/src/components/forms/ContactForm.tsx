@@ -120,9 +120,9 @@ export function ContactForm() {
       <button 
         type="submit" 
         disabled={status === 'submitting'}
-        className="w-full md:w-auto px-6 py-3 bg-brand-primary text-white font-medium rounded-md hover:bg-brand-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary disabled:opacity-50 transition-colors"
+        className="w-full md:w-auto px-8 py-3.5 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 transition-all shadow-md active:scale-[0.98]"
       >
-        {status === 'submitting' ? 'Submitting...' : 'Send Inquiry'}
+        {status === 'submitting' ? 'Submitting Inquiry...' : 'Send Message →'}
       </button>
     </form>
   );

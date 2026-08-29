@@ -82,9 +82,9 @@ export function ServiceInquiryForm({ serviceId, serviceTitle }: ServiceInquiryFo
       <button 
         type="submit" 
         disabled={status === 'submitting'}
-        className="w-full px-4 py-2 bg-brand-primary text-white font-medium rounded-md hover:bg-brand-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary disabled:opacity-50 transition-colors"
+        className="w-full px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 transition-all shadow-md active:scale-[0.98]"
       >
-        {status === 'submitting' ? 'Submitting...' : 'Request Consultation'}
+        {status === 'submitting' ? 'Submitting...' : 'Request Consultation →'}
       </button>
     </form>
   );
