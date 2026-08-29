@@ -14,7 +14,8 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_USE_METRO_WORKSPACE_ROOT": "1"
+        "EXPO_USE_METRO_WORKSPACE_ROOT": "1",
+        "NODE_PATH": "../../node_modules"
       }
     },
     "production": {
@@ -23,7 +24,8 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "EXPO_USE_METRO_WORKSPACE_ROOT": "1"
+        "EXPO_USE_METRO_WORKSPACE_ROOT": "1",
+        "NODE_PATH": "../../node_modules"
       }
     }
   },
