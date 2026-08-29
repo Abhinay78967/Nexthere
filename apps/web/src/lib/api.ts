@@ -6,7 +6,7 @@ import { Insight } from '../types/insight';
 import { FaqBase, ServiceBase } from '../types/base';
 import { ServiceCategory } from '../types/serviceCategory';
 import { ServiceDetail } from '../types/serviceDetail';
-import { prisma } from '@nexthere/database';
+import { supabase } from '@/lib/supabase-client';
 
 // ── REAL DATA FALLBACK CONSTANTS (MCA MOA COMPLIANT) ──
 
@@ -23,10 +23,10 @@ const FALLBACK_CATEGORIES: any[] = [
       {
         id: 'svc-it-1',
         title: 'IT Advisory & Consultancy',
-        slug: 'it-consultancy',
-        description: 'Systems planning, implementation, integration, and technology support services for institutions and organizations.',
-        capabilities: ['IT Consultancy', 'Systems Planning', 'Technology Support', 'Facilities Management'],
-        media: { url: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'IT Advisory' },
+        slug: 'it-advisory-consultancy',
+        description: 'Strategic IT roadmap design, system architecture analysis, and enterprise software advisory.',
+        capabilities: ['System Planning', 'Digital Strategy', 'IT Architecture', 'Vendor Selection'],
+        media: { url: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'IT Advisory' },
         active: true,
         createdAt: new Date().toISOString(),
       },
@@ -62,32 +62,32 @@ const FALLBACK_CATEGORIES: any[] = [
     createdAt: new Date().toISOString(),
     services: [
       {
-        id: 'svc-elec-1',
+        id: 'svc-el-1',
         title: 'Commercial Electrical Installations',
-        slug: 'commercial-installations',
-        description: 'Power distribution, cabling, lighting, and control panels for commercial and industrial premises.',
-        capabilities: ['Power Distribution', 'Cabling', 'Control Panels', 'Lighting Systems'],
-        media: { url: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Electrical Installations' },
+        slug: 'commercial-electrical-installations',
+        description: 'Complete electrical wiring, panels, switchgear, and power distribution for commercial buildings.',
+        capabilities: ['HT/LT Distribution', 'Switchgear Setup', 'Lighting Systems', 'Statutory Compliance'],
+        media: { url: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Commercial Electrical' },
         active: true,
         createdAt: new Date().toISOString(),
       },
       {
-        id: 'svc-elec-2',
-        title: 'Industrial Automation & Control',
-        slug: 'industrial-automation',
-        description: 'Control systems, testing, commissioning, and preventive maintenance of heavy equipment.',
-        capabilities: ['Control Panels', 'Automation Systems', 'Commissioning', 'Equipment Maintenance'],
-        media: { url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Industrial Automation' },
+        id: 'svc-el-2',
+        title: 'Industrial Power Systems & Panels',
+        slug: 'industrial-power-systems',
+        description: 'Industrial motor controls, automation panels, and power backup commissioning for factory premises.',
+        capabilities: ['Control Panels (APFC/PCC)', 'Industrial Wiring', 'Motor Control Centers', 'Power Backup'],
+        media: { url: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Industrial Power' },
         active: true,
         createdAt: new Date().toISOString(),
       },
       {
-        id: 'svc-elec-3',
-        title: 'Testing, Inspection & Compliance',
-        slug: 'testing-compliance',
-        description: 'Statutory electrical safety audits, load testing, and compliance certification.',
-        capabilities: ['Safety Audits', 'Load Testing', 'Statutory Compliance', 'Certification'],
-        media: { url: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Testing & Compliance' },
+        id: 'svc-el-3',
+        title: 'Electrical Safety Audits & Maintenance',
+        slug: 'electrical-safety-audits',
+        description: 'Comprehensive electrical health checkups, thermography, and scheduled maintenance contracts.',
+        capabilities: ['Safety Audits', 'Thermography Scans', 'Harmonic Analysis', 'AMC Support'],
+        media: { url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Electrical Safety' },
         active: true,
         createdAt: new Date().toISOString(),
       },
@@ -97,38 +97,38 @@ const FALLBACK_CATEGORIES: any[] = [
     id: 'cat-log',
     title: 'Freight & Logistics',
     slug: 'freight-logistics',
-    description: 'Motorised road freight transportation, warehousing, inventory handling, and route coordination.',
+    description: 'Motorised road freight transport and commercial logistics for business goods and cargo.',
     active: true,
-    media: { url: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Freight Logistics' },
+    media: { url: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Freight & Logistics' },
     createdAt: new Date().toISOString(),
     services: [
       {
-        id: 'svc-log-1',
-        title: 'Motorised Road Freight',
-        slug: 'road-freight',
-        description: 'Carriage, movement, delivery, and distribution of goods via commercial vehicles, trucks, and trailers.',
-        capabilities: ['Trucks & Fleets', 'Goods Movement', 'Domestic Distribution', 'Commercial Transport'],
-        media: { url: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Road Freight' },
+        id: 'svc-lg-1',
+        title: 'Motorised Road Freight Transport',
+        slug: 'motorised-road-freight',
+        description: 'FTL and LTL freight movement across industrial corridors with GPS-enabled fleet management.',
+        capabilities: ['Full Truck Load (FTL)', 'GPS Live Tracking', 'Scheduled Dispatch', 'Cargo Insurance Support'],
+        media: { url: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Road Freight' },
         active: true,
         createdAt: new Date().toISOString(),
       },
       {
-        id: 'svc-log-2',
-        title: 'Warehousing & Inventory Handling',
-        slug: 'warehousing',
-        description: 'Storage, inventory handling, freight coordination, and allied logistics activities.',
-        capabilities: ['Storage Solutions', 'Inventory Handling', 'Freight Coordination', 'Loading/Unloading'],
-        media: { url: 'https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Warehousing' },
+        id: 'svc-lg-2',
+        title: 'Commercial Logistics & Distribution',
+        slug: 'commercial-logistics-distribution',
+        description: 'End-to-end transport logistics for manufacturing, retail, and commercial supply chains.',
+        capabilities: ['Route Optimization', 'Hub-to-Hub Transport', 'Dedicated Fleet', 'POD Digital Verification'],
+        media: { url: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Commercial Logistics' },
         active: true,
         createdAt: new Date().toISOString(),
       },
       {
-        id: 'svc-log-3',
-        title: 'Route Coordination & Support',
-        slug: 'route-coordination',
-        description: 'Logistics support services for domestic and commercial consignments including route management.',
-        capabilities: ['Route Coordination', 'Consignment Management', 'Delivery Support', 'Logistics Operations'],
-        media: { url: 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Route Coordination' },
+        id: 'svc-lg-3',
+        title: 'Specialized Equipment & Cargo Movement',
+        slug: 'specialized-cargo-movement',
+        description: 'Safe transport and heavy hauling for sensitive machinery, electrical equipment, and project cargo.',
+        capabilities: ['Heavy Cargo', 'Machinery Transport', 'Tailgate Loading', 'On-site Rigging Support'],
+        media: { url: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Specialized Cargo' },
         active: true,
         createdAt: new Date().toISOString(),
       },
@@ -139,45 +139,29 @@ const FALLBACK_CATEGORIES: any[] = [
 const FALLBACK_PROJECTS: any[] = [
   {
     id: 'proj-1',
-    title: 'Institutional Network & Electrical Integration',
-    slug: 'institutional-integration',
-    status: 'PUBLISHED',
+    title: 'Enterprise Campus IT & Electrical Infrastructure',
+    slug: 'enterprise-campus-infrastructure',
+    industry: { title: 'Commercial & Institutional', slug: 'commercial-institutional' },
+    location: 'NCR, India',
     projectStatus: 'COMPLETED',
-    location: 'Pune, India',
-    challenge: 'A newly constructed educational campus required a unified approach to their IT network rollout and campus-wide electrical power distribution.',
-    solution: 'NextHere Services deployed a synchronized team to install main control panels, campus cabling, and establish a managed IT software environment.',
-    results: 'Successfully commissioned all systems 2 weeks ahead of schedule with 100% compliance to applicable electrical safety laws.',
-    coverMedia: { url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Institutional Integration' },
-    industry: {
-      title: 'Commercial & Institutional',
-      slug: 'commercial-institutional',
-      shortDescription: 'Integrated IT, electrical, and facility management for institutions.',
-      description: 'Comprehensive solutions for commercial institutions.',
-      media: { url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Commercial' },
-    },
+    challenge: 'A 50,000 sq.ft. commercial facility required complete dual-tier structured cabling, server room deployment, and high-load electrical switchgear commissioning with zero business disruption.',
+    solution: 'NextHere engineered an integrated solution deploying fiber backbone networks, APFC panels, and scheduled power distribution over a phased 60-day execution roadmap.',
+    results: 'Delivered 100% on schedule with statutory CEIG approvals and 99.99% infrastructure uptime.',
+    coverMedia: { url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Commercial Project' },
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: 'proj-2',
-    title: 'Digital Fleet Management Rollout',
-    slug: 'fleet-management-rollout',
-    status: 'PUBLISHED',
+    title: 'Industrial Manufacturing Freight & Logistics Corridor',
+    slug: 'industrial-freight-corridor',
+    industry: { title: 'Industrial Operations', slug: 'industrial' },
+    location: 'Delhi - Haryana - Rajasthan Route',
     projectStatus: 'COMPLETED',
-    location: 'New Delhi - Delhi Corridor',
-    challenge: 'A manufacturing client needed to overhaul the movement of commercial consignments to reduce transit delays and inventory mismatch.',
-    solution: 'We leased and deployed a fleet of commercial trucks integrated with our proprietary vehicle tracking and shipment monitoring technology.',
-    results: 'Optimized route coordination resulted in a 20% reduction in delivery times and seamless inventory handling across warehouses.',
-    coverMedia: { url: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Fleet Management' },
-    industry: {
-      title: 'Industrial Operations',
-      slug: 'industrial',
-      shortDescription: 'Automation, power distribution, and logistics for industrial units.',
-      description: 'Comprehensive industrial operations support.',
-      media: { url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Industrial' },
-    },
+    challenge: 'An automotive parts manufacturer faced unpredictable delivery schedules and lack of real-time consignment visibility on inter-state transit routes.',
+    solution: 'Deployed a dedicated fleet with GPS telematics, digital dispatch scheduling, and SLA-bound milestone notifications.',
+    results: 'Achieved 98.6% on-time transit performance and reduced freight handling losses to zero.',
+    coverMedia: { url: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Logistics Project' },
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   },
 ];
 
@@ -186,11 +170,10 @@ const FALLBACK_INDUSTRIES: any[] = [
     id: 'ind-1',
     title: 'Commercial & Institutional',
     slug: 'commercial-institutional',
-    shortDescription: 'Integrated IT, electrical, and facility management for institutions.',
+    shortDescription: 'Turnkey IT, electrical, and facility solutions for corporate offices and educational campuses.',
     description: 'We provide turnkey electrical installations, enterprise network infrastructure, and facilities technology for commercial complexes, business parks, and institutional campuses.',
     media: { url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Commercial & Institutional' },
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: 'ind-2',
@@ -200,7 +183,6 @@ const FALLBACK_INDUSTRIES: any[] = [
     description: 'Delivering robust control panels, heavy electrical wiring, and dedicated trucking/freight operations to keep industrial supply chains and factories running seamlessly.',
     media: { url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Industrial Operations' },
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   },
 ];
 
@@ -220,7 +202,6 @@ const FALLBACK_INSIGHTS: any[] = [
       shortDescription: 'Automation, power distribution, and logistics for industrial units.',
     },
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   },
 ];
 
@@ -238,7 +219,7 @@ const FALLBACK_COMPANY: any = {
     city: 'New Delhi',
     state: 'Delhi',
     country: 'India',
-    foundedYear: 2023,
+    foundedYear: 2025,
     logo: { url: '/logo.png', altText: 'NextHere Logo', type: 'IMAGE' },
   },
   settings: {
@@ -248,20 +229,25 @@ const FALLBACK_COMPANY: any = {
     favicon: { url: '/favicon.ico', altText: 'Favicon', type: 'IMAGE' },
     socialLinks: { linkedin: 'https://linkedin.com' },
     footerContent: { copyright: '© 2026 NextHere Services Private Limited' },
-    defaultSEO: { title: 'NextHere Services | Official Corporate Portal' },
   },
 };
 
-// ── API IMPLEMENTATIONS ──
+// ── API IMPLEMENTATIONS WITH SUPABASE SYNC ──
 
 export async function fetchServices(): Promise<ApiResponse<ServiceBase[]> | null> {
   try {
-    const data = await prisma.service.findMany({
-      where: { active: true },
-      include: { category: true },
-    });
-    if (data && data.length > 0) {
-      return { success: true, data: data as unknown as ServiceBase[] };
+    const { data, error } = await supabase
+      .from('Service')
+      .select('*, ServiceCategory(id, title, slug)')
+      .eq('active', true)
+      .order('createdAt', { ascending: true });
+
+    if (!error && data && data.length > 0) {
+      const mapped = data.map((s) => ({
+        ...s,
+        category: s.ServiceCategory,
+      }));
+      return { success: true, data: mapped as unknown as ServiceBase[] };
     }
   } catch (err) {
     console.error('fetchServices error', err);
@@ -272,11 +258,21 @@ export async function fetchServices(): Promise<ApiResponse<ServiceBase[]> | null
 
 export async function fetchServiceBySlug(slug: string): Promise<ApiResponse<ServiceDetail> | null> {
   try {
-    const data = await prisma.service.findUnique({
-      where: { slug },
-      include: { category: true },
-    });
-    if (data) return { success: true, data: data as unknown as ServiceDetail };
+    const { data, error } = await supabase
+      .from('Service')
+      .select('*, ServiceCategory(id, title, slug, description)')
+      .eq('slug', slug)
+      .single();
+
+    if (!error && data) {
+      return {
+        success: true,
+        data: {
+          ...data,
+          category: data.ServiceCategory,
+        } as unknown as ServiceDetail,
+      };
+    }
   } catch (err) {
     console.error('fetchServiceBySlug error', err);
   }
@@ -297,12 +293,17 @@ export async function fetchServiceBySlug(slug: string): Promise<ApiResponse<Serv
 
 export async function fetchCategories(): Promise<ApiResponse<ServiceCategory[]> | null> {
   try {
-    const data = await prisma.serviceCategory.findMany({
-      include: { services: true },
-      orderBy: { createdAt: 'asc' },
-    });
-    if (data && data.length > 0) {
-      return { success: true, data: data as unknown as ServiceCategory[] };
+    const { data, error } = await supabase
+      .from('ServiceCategory')
+      .select('*, Service(*)')
+      .order('createdAt', { ascending: true });
+
+    if (!error && data && data.length > 0) {
+      const mapped = data.map((cat) => ({
+        ...cat,
+        services: cat.Service || [],
+      }));
+      return { success: true, data: mapped as unknown as ServiceCategory[] };
     }
   } catch (err) {
     console.error('fetchCategories error', err);
@@ -344,9 +345,9 @@ export async function submitLead(data: Record<string, unknown>): Promise<ApiResp
 
 export async function fetchCompany(): Promise<ApiResponse<{ profile: CompanyProfile | null; settings: SiteSettings | null }> | null> {
   try {
-    const [profile, settings] = await Promise.all([
-      prisma.companyProfile.findFirst(),
-      prisma.siteSettings.findFirst(),
+    const [{ data: profile }, { data: settings }] = await Promise.all([
+      supabase.from('CompanyProfile').select('*').limit(1).single(),
+      supabase.from('SiteSettings').select('*').limit(1).single(),
     ]);
     if (profile) {
       return {
@@ -365,10 +366,12 @@ export async function fetchCompany(): Promise<ApiResponse<{ profile: CompanyProf
 
 export async function fetchIndustries(): Promise<ApiResponse<Industry[]> | null> {
   try {
-    const data = await prisma.industry.findMany({
-      include: { services: true, projects: true },
-    });
-    if (data && data.length > 0) {
+    const { data, error } = await supabase
+      .from('Industry')
+      .select('*')
+      .order('createdAt', { ascending: true });
+
+    if (!error && data && data.length > 0) {
       return { success: true, data: data as unknown as Industry[] };
     }
   } catch (err) {
@@ -379,11 +382,13 @@ export async function fetchIndustries(): Promise<ApiResponse<Industry[]> | null>
 
 export async function fetchIndustryBySlug(slug: string): Promise<ApiResponse<Industry> | null> {
   try {
-    const data = await prisma.industry.findUnique({
-      where: { slug },
-      include: { services: true, projects: true },
-    });
-    if (data) return { success: true, data: data as unknown as Industry };
+    const { data, error } = await supabase
+      .from('Industry')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+
+    if (!error && data) return { success: true, data: data as unknown as Industry };
   } catch (err) {
     console.error('fetchIndustryBySlug error', err);
   }
@@ -394,11 +399,17 @@ export async function fetchIndustryBySlug(slug: string): Promise<ApiResponse<Ind
 
 export async function fetchProjects(): Promise<ApiResponse<Project[]> | null> {
   try {
-    const data = await prisma.project.findMany({
-      include: { industry: true },
-    });
-    if (data && data.length > 0) {
-      return { success: true, data: data as unknown as Project[] };
+    const { data, error } = await supabase
+      .from('Project')
+      .select('*, Industry(id, title)')
+      .order('createdAt', { ascending: true });
+
+    if (!error && data && data.length > 0) {
+      const mapped = data.map((p) => ({
+        ...p,
+        industry: p.Industry,
+      }));
+      return { success: true, data: mapped as unknown as Project[] };
     }
   } catch (err) {
     console.error('fetchProjects error', err);
@@ -408,11 +419,21 @@ export async function fetchProjects(): Promise<ApiResponse<Project[]> | null> {
 
 export async function fetchProjectBySlug(slug: string): Promise<ApiResponse<Project> | null> {
   try {
-    const data = await prisma.project.findUnique({
-      where: { slug },
-      include: { industry: true },
-    });
-    if (data) return { success: true, data: data as unknown as Project };
+    const { data, error } = await supabase
+      .from('Project')
+      .select('*, Industry(id, title)')
+      .eq('slug', slug)
+      .single();
+
+    if (!error && data) {
+      return {
+        success: true,
+        data: {
+          ...data,
+          industry: data.Industry,
+        } as unknown as Project,
+      };
+    }
   } catch (err) {
     console.error('fetchProjectBySlug error', err);
   }
@@ -423,11 +444,17 @@ export async function fetchProjectBySlug(slug: string): Promise<ApiResponse<Proj
 
 export async function fetchInsights(): Promise<ApiResponse<Insight[]> | null> {
   try {
-    const data = await prisma.article.findMany({
-      include: { industry: true },
-    });
-    if (data && data.length > 0) {
-      return { success: true, data: data as unknown as Insight[] };
+    const { data, error } = await supabase
+      .from('Article')
+      .select('*, Industry(id, title)')
+      .order('createdAt', { ascending: true });
+
+    if (!error && data && data.length > 0) {
+      const mapped = data.map((a) => ({
+        ...a,
+        industry: a.Industry,
+      }));
+      return { success: true, data: mapped as unknown as Insight[] };
     }
   } catch (err) {
     console.error('fetchInsights error', err);
@@ -437,11 +464,21 @@ export async function fetchInsights(): Promise<ApiResponse<Insight[]> | null> {
 
 export async function fetchInsightBySlug(slug: string): Promise<ApiResponse<Insight> | null> {
   try {
-    const data = await prisma.article.findUnique({
-      where: { slug },
-      include: { industry: true },
-    });
-    if (data) return { success: true, data: data as unknown as Insight };
+    const { data, error } = await supabase
+      .from('Article')
+      .select('*, Industry(id, title)')
+      .eq('slug', slug)
+      .single();
+
+    if (!error && data) {
+      return {
+        success: true,
+        data: {
+          ...data,
+          industry: data.Industry,
+        } as unknown as Insight,
+      };
+    }
   } catch (err) {
     console.error('fetchInsightBySlug error', err);
   }
@@ -452,36 +489,16 @@ export async function fetchInsightBySlug(slug: string): Promise<ApiResponse<Insi
 
 export async function fetchFaqs(): Promise<ApiResponse<FaqBase[]> | null> {
   try {
-    const data = await prisma.fAQ.findMany({
-      orderBy: { displayOrder: 'asc' },
-    });
-    if (data && data.length > 0) {
+    const { data, error } = await supabase
+      .from('FAQ')
+      .select('*')
+      .order('displayOrder', { ascending: true });
+
+    if (!error && data && data.length > 0) {
       return { success: true, data: data as unknown as FaqBase[] };
     }
   } catch (err) {
     console.error('fetchFaqs error', err);
   }
-  return {
-    success: true,
-    data: [
-      {
-        id: 'faq-1',
-        question: 'Do you own and operate your transport fleet?',
-        answer: 'Yes, we operate a dedicated and contracted fleet of commercial vehicles, container trucks, and trailers with real-time GPS tracking and route management for nationwide logistics and goods distribution.',
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: 'faq-2',
-        question: 'Are your electrical installations compliant with safety laws?',
-        answer: 'Absolutely. All our installation, commissioning, testing, and repair works are strictly subjected to and compliant with applicable regional and national electrical laws.',
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: 'faq-3',
-        question: 'Do you offer combined IT and Electrical solutions?',
-        answer: 'Yes, we provide integrated technology and electrical infrastructure solutions, including automation, monitoring, and control systems for commercial premises.',
-        createdAt: new Date().toISOString(),
-      },
-    ] as unknown as FaqBase[],
-  };
+  return { success: true, data: [] };
 }
