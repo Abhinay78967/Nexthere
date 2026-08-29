@@ -6,10 +6,14 @@ import { LogOut, Bell } from 'lucide-react';
 
 export function Topbar() {
   const router = useRouter();
-  const supabase = createClient();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
     router.push('/login');
     router.refresh();
   };

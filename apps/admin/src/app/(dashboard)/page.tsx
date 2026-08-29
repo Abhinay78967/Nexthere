@@ -10,20 +10,21 @@ export default function DashboardPage() {
     services: 0,
     projects: 0,
   });
-  const supabase = createClient();
   
   useEffect(() => {
     async function loadStats() {
       try {
+        const supabase = createClient();
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) return;
 
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
         const headers = { Authorization: `Bearer ${session.access_token}` };
         
         const [leadsRes, servicesRes, projectsRes] = await Promise.all([
-          fetch('http://localhost:3001/api/v1/admin/leads', { headers }),
-          fetch('http://localhost:3001/api/v1/admin/services', { headers }),
-          fetch('http://localhost:3001/api/v1/admin/projects', { headers }),
+          fetch(`${apiUrl}/admin/leads`, { headers }),
+          fetch(`${apiUrl}/admin/services`, { headers }),
+          fetch(`${apiUrl}/admin/projects`, { headers }),
         ]);
 
         const [leads, services, projects] = await Promise.all([

@@ -8,7 +8,8 @@ export default function ServicesPage() {
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const supabase = createClient();
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
 
   useEffect(() => {
     fetchServices();
@@ -16,19 +17,20 @@ export default function ServicesPage() {
 
   const fetchServices = async () => {
     try {
+      const supabase = createClient();
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
         setError('Session expired. Please log in again.');
         return;
       }
 
-      const res = await fetch('http://localhost:3001/api/v1/admin/services', {
+      const res = await fetch(`${apiUrl}/admin/services`, {
         headers: { Authorization: `Bearer ${session.access_token}` },
       });
 
       if (!res.ok) throw new Error('Failed to fetch services');
       const json = await res.json();
-      setServices(json.data);
+      setServices(json.data || []);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -37,14 +39,11 @@ export default function ServicesPage() {
   };
 
   const togglePublish = async (id: string, currentlyActive: boolean) => {
-    // Basic optimistic update could go here
     try {
+      const supabase = createClient();
       const { data: { session } } = await supabase.auth.getSession();
-      // The API endpoint currently only publishes (sets active to true). 
-      // We'll need a toggle endpoint or we can just call it to publish for now.
-      // Assuming we have a publish endpoint, we'll hit it. 
       if (!currentlyActive) {
-        await fetch(`http://localhost:3001/api/v1/admin/services/${id}/publish`, {
+        await fetch(`${apiUrl}/admin/services/${id}/publish`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',

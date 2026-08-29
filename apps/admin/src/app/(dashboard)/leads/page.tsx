@@ -8,7 +8,8 @@ export default function LeadsPage() {
   const [leads, setLeads] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const supabase = createClient();
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
 
   useEffect(() => {
     fetchLeads();
@@ -16,19 +17,20 @@ export default function LeadsPage() {
 
   const fetchLeads = async () => {
     try {
+      const supabase = createClient();
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
         setError('Session expired. Please log in again.');
         return;
       }
 
-      const res = await fetch('http://localhost:3001/api/v1/admin/leads', {
+      const res = await fetch(`${apiUrl}/admin/leads`, {
         headers: { Authorization: `Bearer ${session.access_token}` },
       });
 
       if (!res.ok) throw new Error('Failed to fetch leads');
       const json = await res.json();
-      setLeads(json.data);
+      setLeads(json.data || []);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -38,8 +40,9 @@ export default function LeadsPage() {
 
   const updateLeadStatus = async (id: string, newStatus: string) => {
     try {
+      const supabase = createClient();
       const { data: { session } } = await supabase.auth.getSession();
-      await fetch(`http://localhost:3001/api/v1/admin/leads/${id}/status`, {
+      await fetch(`${apiUrl}/admin/leads/${id}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
