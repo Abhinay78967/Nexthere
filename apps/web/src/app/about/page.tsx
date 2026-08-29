@@ -17,14 +17,14 @@ export async function generateMetadata() {
 const STATS = [
   { label: 'Year Founded', value: '2023' },
   { label: 'Service Pillars', value: '3' },
-  { label: 'MOA Clauses', value: '12' },
-  { label: 'Registered In', value: 'India' },
+  { label: 'Coverage', value: 'Pan-India' },
+  { label: 'SLA Commitment', value: '99.9%' },
 ];
 
 const VALUES = [
-  { icon: '🛡️', title: 'Compliance First', desc: 'Every service we deliver is within the bounds of our MCA-registered Memorandum of Association.' },
+  { icon: '🛡️', title: 'Quality & Safety Assured', desc: 'Every deployment adheres strictly to statutory safety norms, ISO engineering benchmarks, and regulatory standards.' },
   { icon: '🔧', title: 'Integrated Delivery', desc: 'One partner for IT, electrical, and logistics — reducing vendor overhead for our clients.' },
-  { icon: '📈', title: 'Results Oriented', desc: 'From reducing shipment delays 20% to commissioning campuses ahead of schedule, we measure success by outcomes.' },
+  { icon: '📈', title: 'Results Oriented', desc: 'From reducing transit delays to commissioning electrical networks ahead of schedule, we measure success by outcomes.' },
   { icon: '🤝', title: 'Long-Term Partnership', desc: 'We build relationships, not transactions. Our SLA-backed support continues long after deployment.' },
 ];
 
@@ -86,7 +86,7 @@ export default async function AboutPage() {
                   {profile?.longDescription || 'NextHere Services Private Limited is a registered enterprise delivering three core pillars: IT consultancy, commercial electrical installations, and motorised road freight logistics.'}
                 </p>
                 <p className="text-lg leading-relaxed">
-                  Incorporated under the Companies Act, our Memorandum of Association authorises us to take on integrated projects across IT systems, electrical infrastructure, and supply chain logistics — allowing a single trusted partner to handle complex, multi-domain mandates.
+                  Incorporated under the Companies Act, NextHere Services delivers end-to-end integration across enterprise IT systems, electrical power infrastructure, and road freight logistics — serving as a single trusted partner for complex, multi-domain operational requirements.
                 </p>
               </div>
             </div>

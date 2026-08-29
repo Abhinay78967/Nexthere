@@ -187,7 +187,7 @@ const FALLBACK_INDUSTRIES: any[] = [
     title: 'Commercial & Institutional',
     slug: 'commercial-institutional',
     shortDescription: 'Integrated IT, electrical, and facility management for institutions.',
-    description: 'We provide end-to-end electrical installations, network infrastructure, and facilities management for large commercial premises and institutions as mandated by our core business objects.',
+    description: 'We provide turnkey electrical installations, enterprise network infrastructure, and facilities technology for commercial complexes, business parks, and institutional campuses.',
     media: { url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop', type: 'IMAGE', altText: 'Commercial & Institutional' },
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -466,8 +466,8 @@ export async function fetchFaqs(): Promise<ApiResponse<FaqBase[]> | null> {
     data: [
       {
         id: 'faq-1',
-        question: 'Do you own your transport fleet?',
-        answer: 'Yes, as per our mandate, we operate, own, lease, and manage commercial vehicles, trucks, and tempos for carrying goods and providing nationwide logistics services.',
+        question: 'Do you own and operate your transport fleet?',
+        answer: 'Yes, we operate a dedicated and contracted fleet of commercial vehicles, container trucks, and trailers with real-time GPS tracking and route management for nationwide logistics and goods distribution.',
         createdAt: new Date().toISOString(),
       },
       {

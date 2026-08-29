@@ -122,7 +122,7 @@ export default async function HomePage() {
             <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">What We Do</p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Three Core Service Pillars</h2>
             <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
-              Registered under our Memorandum of Association — covering IT, electrical, and logistics as single integrated mandate.
+              Delivering unified capabilities across IT advisory, power infrastructure, and nationwide freight logistics for seamless operational scale.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
