@@ -104,17 +104,6 @@ export function HeaderNav({ categories }: HeaderNavProps) {
             >
               Contact
             </Link>
-
-            <Link
-              href="/logistics"
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold transition-all ${
-                pathname === '/logistics'
-                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
-                  : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 hover:bg-emerald-500/20'
-              }`}
-            >
-              🚚 Book Mini-Truck
-            </Link>
           </nav>
         </div>
 
@@ -219,17 +208,10 @@ export function HeaderNav({ categories }: HeaderNavProps) {
 
           <div className="pt-2 border-t border-border space-y-3">
             <Link
-              href="/logistics"
-              className="flex w-full items-center justify-center py-3 px-4 rounded-xl bg-emerald-600 text-white font-bold text-center shadow-md hover:bg-emerald-700 transition-colors gap-2"
-            >
-              🚚 Book Mini-Truck Online
-            </Link>
-
-            <Link
               href="/request-quote"
               className="flex w-full items-center justify-center py-3 px-4 rounded-xl bg-primary text-primary-foreground font-semibold text-center shadow hover:bg-primary/90 transition-colors"
             >
-              Request Enterprise Quote
+              Request a Quote
             </Link>
 
             <div className="flex items-center justify-between text-xs text-muted-foreground px-2 pt-1">

@@ -132,12 +132,22 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           <p className="text-muted-foreground mb-6 max-w-md mx-auto">
             Contact our engineering and advisory team for custom specifications and quotations.
           </p>
-          <Link
-            href="/request-quote"
-            className="inline-flex h-11 items-center px-8 rounded-md bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors shadow"
-          >
-            Request a Quote
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {categorySlug === 'freight-logistics' && (
+              <Link
+                href="/logistics"
+                className="inline-flex h-11 items-center px-8 rounded-md bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-colors shadow"
+              >
+                🚚 Book On-Demand Mini-Truck
+              </Link>
+            )}
+            <Link
+              href="/request-quote"
+              className="inline-flex h-11 items-center px-8 rounded-md bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors shadow"
+            >
+              Request a Corporate Quote
+            </Link>
+          </div>
         </Container>
       </div>
     </div>
