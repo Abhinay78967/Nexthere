@@ -17,7 +17,6 @@
     "expo-asset": "~11.0.4",
     "expo-constants": "~17.0.8",
     "expo-font": "~13.0.4",
-    "expo-modules-core": "~2.2.3",
     "expo-status-bar": "~2.0.1",
     "expo-system-ui": "~4.0.9",
     "react": "18.3.1",

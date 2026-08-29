@@ -57,9 +57,11 @@ Logo.jpeg
 coverage/
 .nyc_output/
 
-# Expo / Mobile
-apps/mobile/android/
+# Expo / Mobile — keep android/ tracked (bare workflow for EAS reliability)
 apps/mobile/ios/
+apps/mobile/android/build/
+apps/mobile/android/.gradle/
+apps/mobile/android/app/build/
 .expo/
 *.jks
 *.p8
