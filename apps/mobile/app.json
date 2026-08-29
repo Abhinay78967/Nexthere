@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "NextHere Logistics: Mini Truck",
+    "slug": "nexthere-logistics",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A2540"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nexthereservices.logistics"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0A2540"
+      },
+      "package": "com.nexthereservices.logistics",
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "nexthere-logistics-playstore"
+      }
+    }
+  }
+}
