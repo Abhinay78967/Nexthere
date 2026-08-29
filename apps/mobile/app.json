@@ -34,8 +34,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "nexthere-logistics-playstore"
+        "projectId": "6389d12e-76cf-4961-9857-1da470172ec5"
       }
-    }
+    },
+    "owner": "abhinay0001"
   }
 }
