@@ -5,8 +5,9 @@ import { fetchProjectBySlug } from '@/lib/api';
 import { Container } from '@nexthere/ui';
 import { notFound } from 'next/navigation';
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const res = await fetchProjectBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
+  const { slug } = await params;
+  const res = await fetchProjectBySlug(slug);
   if (!res?.success || !res.data) return { title: 'Project Not Found' };
   return {
     title: `${res.data.title} | NextHere Projects`,
@@ -20,8 +21,9 @@ const STATUS_LABELS: Record<string, string> = {
   PLANNED: 'Planned 📋',
 };
 
-export default async function ProjectDetailPage({ params }: { params: { slug: string } }) {
-  const res = await fetchProjectBySlug(params.slug);
+export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
+  const { slug } = await params;
+  const res = await fetchProjectBySlug(slug);
   if (!res?.success || !res.data) notFound();
 
   const project = res.data;
@@ -73,8 +75,8 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
             )}
             {project.results && (
               <section className="bg-primary/5 border border-primary/20 rounded-2xl p-8">
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                  <span className="text-3xl">📈</span> Results
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 text-primary">
+                  <span className="text-3xl">📈</span> Results & Impact
                 </h2>
                 <p className="text-foreground leading-relaxed text-lg font-medium">{project.results}</p>
               </section>
@@ -83,41 +85,38 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
 
           {/* Sidebar */}
           <div className="space-y-6">
-            <div className="bg-surface rounded-2xl border border-border p-6">
-              <h3 className="font-bold text-lg mb-5">Project Details</h3>
+            <div className="bg-surface rounded-2xl border border-border p-6 shadow-sm">
+              <h3 className="font-bold text-lg mb-5 text-foreground">Project Summary</h3>
               <ul className="space-y-4 text-sm divide-y divide-border">
                 {project.industry && (
-                  <li className="pt-4 first:pt-0">
-                    <p className="text-muted-foreground mb-1">Industry</p>
+                  <li className="pt-3 first:pt-0">
+                    <p className="text-muted-foreground text-xs uppercase tracking-wider mb-1">Industry</p>
                     <p className="font-semibold text-foreground">{project.industry.title}</p>
                   </li>
                 )}
                 {project.location && (
-                  <li className="pt-4">
-                    <p className="text-muted-foreground mb-1">Location</p>
+                  <li className="pt-3">
+                    <p className="text-muted-foreground text-xs uppercase tracking-wider mb-1">Location</p>
                     <p className="font-semibold text-foreground">{project.location}</p>
                   </li>
                 )}
-                <li className="pt-4">
-                  <p className="text-muted-foreground mb-1">Status</p>
-                  <p className="font-semibold text-foreground">
-                    {STATUS_LABELS[project.projectStatus] || project.projectStatus}
-                  </p>
+                <li className="pt-3">
+                  <p className="text-muted-foreground text-xs uppercase tracking-wider mb-1">Status</p>
+                  <p className="font-semibold text-foreground">{STATUS_LABELS[project.projectStatus] || project.projectStatus}</p>
                 </li>
               </ul>
             </div>
-            <Link
-              href="/contact"
-              className="block w-full text-center px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
-            >
-              Discuss a Similar Project
-            </Link>
-            <Link
-              href="/projects"
-              className="block w-full text-center px-6 py-3 rounded-xl border border-border font-semibold hover:bg-surface-muted transition-colors text-sm"
-            >
-              ← View All Projects
-            </Link>
+
+            <div className="bg-primary/10 border border-primary/20 rounded-2xl p-6 text-center">
+              <h3 className="font-bold text-foreground mb-2">Have a similar project?</h3>
+              <p className="text-xs text-muted-foreground mb-4">Let our specialists assess your requirements and deliver SLA-backed execution.</p>
+              <Link
+                href="/request-quote"
+                className="block w-full py-3 px-4 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow"
+              >
+                Request a Quote
+              </Link>
+            </div>
           </div>
         </div>
       </Container>

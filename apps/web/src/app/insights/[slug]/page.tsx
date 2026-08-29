@@ -5,8 +5,9 @@ import { fetchInsightBySlug } from '@/lib/api';
 import { Container } from '@nexthere/ui';
 import { notFound } from 'next/navigation';
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const res = await fetchInsightBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
+  const { slug } = await params;
+  const res = await fetchInsightBySlug(slug);
   if (!res?.success || !res.data) return { title: 'Article Not Found' };
   return {
     title: `${res.data.title} | NextHere Insights`,
@@ -16,8 +17,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1920&auto=format&fit=crop';
 
-export default async function InsightDetailPage({ params }: { params: { slug: string } }) {
-  const res = await fetchInsightBySlug(params.slug);
+export default async function InsightDetailPage({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
+  const { slug } = await params;
+  const res = await fetchInsightBySlug(slug);
   if (!res?.success || !res.data) notFound();
 
   const article = res.data;
@@ -38,52 +40,48 @@ export default async function InsightDetailPage({ params }: { params: { slug: st
               {article.industry.title}
             </span>
           )}
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight max-w-3xl leading-snug">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight max-w-3xl leading-tight">
             {article.title}
           </h1>
-          <div className="flex items-center gap-4 mt-3 text-gray-300 text-sm">
+          <div className="flex items-center gap-4 mt-4 text-gray-300 text-sm">
             {article.author && <span>By {article.author}</span>}
-            {article.author && article.publishedAt && <span>·</span>}
             {article.publishedAt && (
-              <span>
-                {new Date(article.publishedAt).toLocaleDateString('en-IN', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </span>
+              <>
+                <span>·</span>
+                <span>{new Date(article.publishedAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              </>
             )}
           </div>
         </Container>
       </div>
 
-      {/* Article Content */}
+      {/* Content */}
       <Container className="py-16 md:py-24">
         <div className="max-w-3xl mx-auto">
           {article.excerpt && (
-            <p className="text-xl text-muted-foreground leading-relaxed mb-10 font-medium border-l-4 border-primary pl-5 italic">
+            <p className="text-xl text-foreground font-medium leading-relaxed mb-10 border-l-4 border-primary pl-6 py-1 bg-surface-muted rounded-r-xl">
               {article.excerpt}
             </p>
           )}
 
-          <article className="prose dark:prose-invert prose-lg max-w-none">
+          <article className="prose dark:prose-invert prose-lg max-w-none text-muted-foreground leading-relaxed">
             {article.content ? (
-              <p className="text-foreground leading-relaxed whitespace-pre-wrap">{article.content}</p>
+              <p className="whitespace-pre-wrap">{article.content}</p>
             ) : (
-              <p className="text-muted-foreground">{article.excerpt}</p>
+              <p>{article.excerpt}</p>
             )}
           </article>
 
-          {/* Footer */}
+          {/* Footer Back Link & CTA */}
           <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-            <Link href="/insights" className="text-primary font-semibold hover:underline">
-              ← Back to Insights
+            <Link href="/insights" className="text-primary font-semibold hover:underline text-sm">
+              ← Back to All Insights
             </Link>
             <Link
               href="/contact"
-              className="inline-flex h-10 items-center px-6 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors text-sm"
+              className="inline-flex h-11 items-center px-6 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors text-sm shadow"
             >
-              Discuss With Our Team
+              Discuss with Our Specialists
             </Link>
           </div>
         </div>
