@@ -327,3 +327,130 @@ model Inquiry {
   @@index([createdAt])
   @@index([leadId])
 }
+
+// ---------------------------------------------------------
+// SOCIAL MEDIA & GROWTH AUTOMATION ENGINE
+// ---------------------------------------------------------
+
+enum SocialPlatform {
+  LINKEDIN
+  INSTAGRAM
+  TWITTER
+  FACEBOOK
+  YOUTUBE
+}
+
+enum SocialPostStatus {
+  DRAFT
+  AI_GENERATING
+  SCHEDULED
+  PUBLISHING
+  PUBLISHED
+  FAILED
+}
+
+enum SocialContentType {
+  TEXT_POST
+  CAROUSEL
+  IMAGE_POST
+  REEL_SCRIPT
+  THREAD
+}
+
+model BrandProfile {
+  id              String           @id @default(uuid())
+  name            String
+  slug            String           @unique
+  tagline         String?
+  toneOfVoice     String?
+  targetAudience  String?
+  defaultHashtags String[]
+  brandColors     Json?
+  websiteUrl      String?
+  ctaText         String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  accounts        SocialAccount[]
+  campaigns       SocialCampaign[]
+  posts           SocialPost[]
+}
+
+model SocialAccount {
+  id             String         @id @default(uuid())
+  brandProfileId String?
+  brandProfile   BrandProfile?  @relation(fields: [brandProfileId], references: [id], onDelete: SetNull)
+  platform       SocialPlatform
+  accountName    String
+  accountHandle  String
+  profileUrl     String?
+  avatarUrl      String?
+  accessToken    String?
+  refreshToken   String?
+  tokenExpiresAt DateTime?
+  isActive       Boolean        @default(true)
+  metadata       Json?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  posts          SocialPost[]
+
+  @@index([platform])
+  @@index([brandProfileId])
+}
+
+model SocialCampaign {
+  id             String        @id @default(uuid())
+  brandProfileId String?
+  brandProfile   BrandProfile? @relation(fields: [brandProfileId], references: [id], onDelete: SetNull)
+  name           String
+  description    String?
+  goal           String?
+  startDate      DateTime?
+  endDate        DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  posts          SocialPost[]
+
+  @@index([brandProfileId])
+}
+
+model SocialPost {
+  id              String            @id @default(uuid())
+  brandProfileId  String?
+  brandProfile    BrandProfile?     @relation(fields: [brandProfileId], references: [id], onDelete: SetNull)
+  socialAccountId String?
+  socialAccount   SocialAccount?    @relation(fields: [socialAccountId], references: [id], onDelete: SetNull)
+  campaignId      String?
+  campaign        SocialCampaign?   @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  
+  platform        SocialPlatform
+  contentType     SocialContentType @default(TEXT_POST)
+  status          SocialPostStatus  @default(DRAFT)
+  
+  title           String?
+  content         String
+  mediaUrls       String[]
+  carouselSlides  Json?
+  
+  scheduledAt     DateTime?
+  publishedAt     DateTime?
+  externalPostId  String?
+  externalPostUrl String?
+  errorMessage    String?
+  
+  metrics         Json?
+  aiPrompt        String?
+  aiParameters    Json?
+  tags            String[]
+  
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@index([status])
+  @@index([platform])
+  @@index([scheduledAt])
+  @@index([brandProfileId])
+}
+

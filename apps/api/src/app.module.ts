@@ -16,6 +16,7 @@ import { InsightsModule } from './insights/insights.module';
 import { FaqsModule } from './faqs/faqs.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
+import { SocialModule } from './social/social.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { AdminModule } from './admin/admin.module';
     CompanyModule,
     InsightsModule,
     FaqsModule,
+    SocialModule,
   ],
   controllers: [AppController],
   providers: [

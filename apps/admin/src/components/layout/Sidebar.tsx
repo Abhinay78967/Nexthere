@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Building2, Settings, List, Users, FolderKanban, Lightbulb, MessageCircleQuestion, Database } from 'lucide-react';
+import { LayoutDashboard, Building2, Settings, List, Users, FolderKanban, Lightbulb, MessageCircleQuestion, Database, Sparkles } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'Social Growth', href: '/social', icon: Sparkles },
   { name: 'Leads', href: '/leads', icon: Users },
   { name: 'Services', href: '/services', icon: List },
   { name: 'Industries', href: '/industries', icon: Database },

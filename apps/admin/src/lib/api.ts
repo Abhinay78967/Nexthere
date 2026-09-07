@@ -116,3 +116,221 @@ export async function fetchFaqs(): Promise<ApiResponse<FaqBase[]> | null> {
     return res.json() as Promise<ApiResponse<FaqBase[]>>;
   } catch { return null; }
 }
+
+// ---------------------------------------------------------
+// SOCIAL GROWTH & AUTOMATION API CLIENTS
+// ---------------------------------------------------------
+
+export async function fetchSocialStats(): Promise<any | null> {
+  try {
+    const res = await fetch(`${API_URL}/social/stats`, { cache: 'no-store' });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchSocialBrands(): Promise<any[]> {
+  try {
+    const res = await fetch(`${API_URL}/social/brands`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
+export async function createSocialBrand(data: any): Promise<any | null> {
+  try {
+    const res = await fetch(`${API_URL}/social/brands`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchSocialPosts(params?: { platform?: string; status?: string; brandProfileId?: string; search?: string }): Promise<any[]> {
+  try {
+    const query = new URLSearchParams();
+    if (params?.platform) query.set('platform', params.platform);
+    if (params?.status) query.set('status', params.status);
+    if (params?.brandProfileId) query.set('brandProfileId', params.brandProfileId);
+    if (params?.search) query.set('search', params.search);
+
+    const res = await fetch(`${API_URL}/social/posts?${query.toString()}`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
+export async function generateAiSocialPosts(data: {
+  topic: string;
+  brandProfileId?: string;
+  targetAudience?: string;
+  tone?: string;
+  platforms?: string[];
+  callToAction?: string;
+  customInstructions?: string;
+}): Promise<any[]> {
+  try {
+    const res = await fetch(`${API_URL}/social/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
+export async function createSocialPost(data: any): Promise<any | null> {
+  try {
+    const res = await fetch(`${API_URL}/social/posts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function updateSocialPost(id: string, data: any): Promise<any | null> {
+  try {
+    const res = await fetch(`${API_URL}/social/posts/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function deleteSocialPost(id: string): Promise<boolean> {
+  try {
+    const res = await fetch(`${API_URL}/social/posts/${id}`, {
+      method: 'DELETE',
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+export async function publishSocialPostNow(id: string): Promise<any | null> {
+  try {
+    const res = await fetch(`${API_URL}/social/posts/${id}/publish-now`, {
+      method: 'POST',
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchSocialCalendar(year?: number, month?: number): Promise<any | null> {
+  try {
+    const query = new URLSearchParams();
+    if (year !== undefined) query.set('year', year.toString());
+    if (month !== undefined) query.set('month', month.toString());
+
+    const res = await fetch(`${API_URL}/social/calendar?${query.toString()}`, { cache: 'no-store' });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchSocialAccounts(): Promise<any[]> {
+  try {
+    const res = await fetch(`${API_URL}/social/accounts`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
+export async function createSocialAccount(data: any): Promise<any | null> {
+  try {
+    const res = await fetch(`${API_URL}/social/accounts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function updateSocialAccount(id: string, data: any): Promise<any | null> {
+  try {
+    const res = await fetch(`${API_URL}/social/accounts/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function deleteSocialAccount(id: string): Promise<boolean> {
+  try {
+    const res = await fetch(`${API_URL}/social/accounts/${id}`, {
+      method: 'DELETE',
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+export async function testSocialAccountConnection(id: string): Promise<any | null> {
+  try {
+    const res = await fetch(`${API_URL}/social/accounts/${id}/test`, {
+      method: 'POST',
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function simulateInboundLead(data: any): Promise<any | null> {
+  try {
+    const res = await fetch(`${API_URL}/social/webhooks/inbound`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+
