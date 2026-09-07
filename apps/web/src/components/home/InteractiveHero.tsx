@@ -11,13 +11,12 @@ import {
   ShieldCheck, 
   CheckCircle2, 
   Sparkles, 
-  Clock,
-  ChevronRight,
-  TrendingUp,
-  Layers
+  Clock, 
+  ChevronRight, 
+  Layers 
 } from 'lucide-react';
 
-interface PillarData {
+interface DivisionData {
   id: string;
   title: string;
   subtitle: string;
@@ -36,12 +35,12 @@ interface PillarData {
   bgImage: string;
 }
 
-const PILLARS: PillarData[] = [
+const DIVISIONS: DivisionData[] = [
   {
     id: 'it',
     title: 'IT & Technology Consulting',
     subtitle: 'Enterprise Systems & Cloud Infrastructure',
-    badge: 'Technology Pillar',
+    badge: 'Technology Division',
     icon: Cpu,
     color: 'from-blue-500 to-cyan-400',
     bgGradient: 'from-blue-950 via-slate-900 to-slate-950',
@@ -61,14 +60,14 @@ const PILLARS: PillarData[] = [
     ctaLink: '/services/it-technology',
     ctaText: 'Explore IT Capabilities',
     secondaryCta: 'Request IT Proposal',
-    secondaryLink: '/request-quote?pillar=it',
+    secondaryLink: '/request-quote?division=it',
     bgImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920&auto=format&fit=crop',
   },
   {
     id: 'electrical',
     title: 'Electrical Infrastructure',
     subtitle: 'Commercial & Industrial Power Engineering',
-    badge: 'Power Pillar',
+    badge: 'Electrical Power Division',
     icon: Zap,
     color: 'from-amber-400 to-orange-500',
     bgGradient: 'from-amber-950/80 via-slate-900 to-slate-950',
@@ -88,14 +87,14 @@ const PILLARS: PillarData[] = [
     ctaLink: '/services/electrical-infrastructure',
     ctaText: 'Explore Electrical Works',
     secondaryCta: 'Get Electrical Estimate',
-    secondaryLink: '/request-quote?pillar=electrical',
+    secondaryLink: '/request-quote?division=electrical',
     bgImage: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=1920&auto=format&fit=crop',
   },
   {
     id: 'logistics',
     title: 'Freight & Road Logistics',
     subtitle: 'Motorised Commercial Fleet & Dispatch',
-    badge: 'Mobility Pillar',
+    badge: 'Logistics & Mobility Division',
     icon: Truck,
     color: 'from-emerald-400 to-teal-500',
     bgGradient: 'from-emerald-950/80 via-slate-900 to-slate-950',
@@ -114,33 +113,33 @@ const PILLARS: PillarData[] = [
     ],
     ctaLink: '/services/freight-logistics',
     ctaText: 'Explore Logistics Fleet',
-    secondaryCta: 'Calculate Freight Rate',
-    secondaryLink: '/request-quote?pillar=logistics',
+    secondaryCta: 'Consult Freight Rates',
+    secondaryLink: '/request-quote?division=logistics',
     bgImage: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=1920&auto=format&fit=crop',
   },
 ];
 
 export function InteractiveHero() {
   const [activeTab, setActiveTab] = useState<string>('it');
-  const currentPillar = PILLARS.find((p) => p.id === activeTab) || PILLARS[0];
-  const IconComponent = currentPillar.icon;
+  const currentDivision = DIVISIONS.find((p) => p.id === activeTab) || DIVISIONS[0];
+  const IconComponent = currentDivision.icon;
 
   return (
     <div className="relative w-full overflow-hidden bg-slate-950 text-white min-h-[92vh] flex flex-col justify-center pt-8 pb-16">
       {/* Dynamic Background Image with Smooth Crossfade */}
-      {PILLARS.map((pillar) => (
+      {DIVISIONS.map((division) => (
         <div
-          key={pillar.id}
+          key={division.id}
           className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            activeTab === pillar.id ? 'opacity-25' : 'opacity-0 pointer-events-none'
+            activeTab === division.id ? 'opacity-25' : 'opacity-0 pointer-events-none'
           }`}
         >
           <Image
-            src={pillar.bgImage}
-            alt={pillar.title}
+            src={division.bgImage}
+            alt={division.title}
             fill
             className="object-cover"
-            priority={pillar.id === 'it'}
+            priority={division.id === 'it'}
           />
         </div>
       ))}
@@ -172,15 +171,15 @@ export function InteractiveHero() {
           </div>
         </div>
 
-        {/* 3-Pillar Interactive Tab Switcher */}
+        {/* 3 Strategic Divisions Interactive Tab Switcher */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-1.5 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl shadow-2xl mb-12">
-          {PILLARS.map((pillar) => {
-            const TabIcon = pillar.icon;
-            const isActive = activeTab === pillar.id;
+          {DIVISIONS.map((division) => {
+            const TabIcon = division.icon;
+            const isActive = activeTab === division.id;
             return (
               <button
-                key={pillar.id}
-                onClick={() => setActiveTab(pillar.id)}
+                key={division.id}
+                onClick={() => setActiveTab(division.id)}
                 className={`flex items-center gap-3.5 p-4 rounded-xl text-left transition-all duration-300 ${
                   isActive
                     ? 'bg-gradient-to-r from-blue-600/90 to-blue-700 text-white shadow-lg shadow-blue-900/50 scale-[1.01]'
@@ -196,10 +195,10 @@ export function InteractiveHero() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs font-semibold uppercase tracking-wider opacity-80">
-                    {pillar.badge}
+                    {division.badge}
                   </p>
                   <p className="text-sm sm:text-base font-bold truncate text-white">
-                    {pillar.title}
+                    {division.title}
                   </p>
                 </div>
               </button>
@@ -207,29 +206,29 @@ export function InteractiveHero() {
           })}
         </div>
 
-        {/* Dynamic Content Grid for Active Pillar */}
+        {/* Dynamic Content Grid for Active Division */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left Column: Heading & Value Proposition */}
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-500/10 border border-blue-400/20 text-xs font-bold uppercase tracking-wider text-blue-300">
               <IconComponent className="w-4 h-4" />
-              {currentPillar.subtitle}
+              {currentDivision.subtitle}
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
-              {currentPillar.tagline.split(' ').slice(0, 3).join(' ')}{' '}
-              <span className={`bg-gradient-to-r ${currentPillar.color} bg-clip-text text-transparent`}>
-                {currentPillar.tagline.split(' ').slice(3).join(' ')}
+              {currentDivision.tagline.split(' ').slice(0, 3).join(' ')}{' '}
+              <span className={`bg-gradient-to-r ${currentDivision.color} bg-clip-text text-transparent`}>
+                {currentDivision.tagline.split(' ').slice(3).join(' ')}
               </span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
-              {currentPillar.description}
+              {currentDivision.description}
             </p>
 
             {/* Feature Checklist */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              {currentPillar.features.map((feature, idx) => (
+              {currentDivision.features.map((feature, idx) => (
                 <div key={idx} className="flex items-start gap-2.5 text-sm text-slate-200">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
                   <span>{feature}</span>
@@ -240,17 +239,17 @@ export function InteractiveHero() {
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-4 pt-4">
               <Link
-                href={currentPillar.secondaryLink}
+                href="#solution-blueprint"
                 className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-900/40 transition-all hover:-translate-y-0.5 active:scale-95"
               >
-                <span>{currentPillar.secondaryCta}</span>
+                <span>Diagnose Your Challenge</span>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
               <Link
-                href={currentPillar.ctaLink}
+                href={currentDivision.ctaLink}
                 className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 backdrop-blur-sm transition-all active:scale-95"
               >
-                <span>{currentPillar.ctaText}</span>
+                <span>{currentDivision.ctaText}</span>
               </Link>
             </div>
           </div>
@@ -267,7 +266,7 @@ export function InteractiveHero() {
                   </div>
                   <div>
                     <h3 className="font-bold text-white text-base">Key Performance SLA</h3>
-                    <p className="text-xs text-slate-400">{currentPillar.title}</p>
+                    <p className="text-xs text-slate-400">{currentDivision.title}</p>
                   </div>
                 </div>
                 <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
@@ -277,7 +276,7 @@ export function InteractiveHero() {
 
               {/* Stats Counters */}
               <div className="grid grid-cols-3 gap-3">
-                {currentPillar.stats.map((stat, i) => (
+                {currentDivision.stats.map((stat, i) => (
                   <div key={i} className="p-3.5 rounded-2xl bg-slate-800/60 border border-slate-700/60 text-center">
                     <p className="text-lg sm:text-2xl font-black text-white">{stat.value}</p>
                     <p className="text-[11px] text-slate-400 mt-1 font-medium leading-tight">{stat.label}</p>

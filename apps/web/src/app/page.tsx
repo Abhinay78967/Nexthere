@@ -10,7 +10,7 @@ import { Insight } from '@/types/insight';
 import { FaqBase } from '@/types/base';
 import { FAQPageSchema } from '@/components/seo/StructuredData';
 import { InteractiveHero } from '@/components/home/InteractiveHero';
-import { InstantEstimator } from '@/components/home/InstantEstimator';
+import { SolutionBlueprintEngine } from '@/components/home/SolutionBlueprintEngine';
 import { FleetShowcase } from '@/components/home/FleetShowcase';
 import { InteractiveFaq } from '@/components/home/InteractiveFaq';
 import { 
@@ -23,10 +23,7 @@ import {
   Truck, 
   Clock, 
   Layers, 
-  Users, 
-  Award,
-  ChevronRight,
-  ExternalLink
+  Award
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -60,7 +57,7 @@ export default async function HomePage() {
   const TRUST_METRICS = [
     { label: 'MCA Registered Corporate', value: 'MCA India', icon: ShieldCheck, desc: 'Ministry of Corporate Affairs compliant' },
     { label: 'SLA Response Time', value: '< 24 Hours', icon: Clock, desc: 'Rapid technical & freight estimates' },
-    { label: 'Core Business Pillars', value: 'IT • Power • Fleet', icon: Layers, desc: 'Unified single-contract accountability' },
+    { label: 'Strategic Business Divisions', value: 'IT • Power • Fleet', icon: Layers, desc: 'Unified single-contract accountability' },
     { label: 'Operational Footprint', value: 'Pan-India', icon: Truck, desc: 'Delhi NCR hub & national corridors' },
   ];
 
@@ -94,30 +91,30 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ───── 3. THREE CORE SERVICE PILLARS OVERVIEW ───── */}
+      {/* ───── 3. THREE STRATEGIC DIVISIONS OVERVIEW ───── */}
       <section className="w-full py-20 md:py-32 border-b border-border bg-background">
         <Container>
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold uppercase tracking-widest">
-              <Layers className="w-3.5 h-3.5" /> Integrated Triad Capabilities
+              <Layers className="w-3.5 h-3.5" /> Integrated Enterprise Capabilities
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground">
-              Three Pillars. One Corporate Mandate.
+              Three Strategic Divisions. One Enterprise Mandate.
             </h2>
             <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-              Eliminate vendor fragmentation. We unify high-load electrical infrastructure, enterprise IT networks, and motorised freight transportation under a single contract.
+              Eliminate vendor fragmentation. We unify high-load electrical infrastructure, enterprise IT networks, and motorised freight transportation under a single accountable contract.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* IT Pillar Card */}
+            {/* IT Division Card */}
             <div className="group rounded-3xl border border-border bg-surface p-7 shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between">
               <div className="space-y-5">
                 <div className="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
                   <Cpu className="w-7 h-7" />
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Pillar 01</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Division 01</span>
                   <h3 className="text-xl font-extrabold text-foreground mt-1 group-hover:text-primary transition-colors">
                     IT & Technology Solutions
                   </h3>
@@ -145,20 +142,20 @@ export default async function HomePage() {
                   href="/services/it-technology"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline group-hover:translate-x-1 transition-transform"
                 >
-                  <span>Explore IT Solutions</span>
+                  <span>Explore IT Capabilities</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
 
-            {/* Electrical Pillar Card */}
+            {/* Electrical Division Card */}
             <div className="group rounded-3xl border border-border bg-surface p-7 shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between">
               <div className="space-y-5">
                 <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
                   <Zap className="w-7 h-7" />
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Pillar 02</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Division 02</span>
                   <h3 className="text-xl font-extrabold text-foreground mt-1 group-hover:text-primary transition-colors">
                     Electrical Infrastructure
                   </h3>
@@ -192,14 +189,14 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* Freight Pillar Card */}
+            {/* Freight Division Card */}
             <div className="group rounded-3xl border border-border bg-surface p-7 shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between">
               <div className="space-y-5">
                 <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
                   <Truck className="w-7 h-7" />
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Pillar 03</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Division 03</span>
                   <h3 className="text-xl font-extrabold text-foreground mt-1 group-hover:text-primary transition-colors">
                     Freight & Road Logistics
                   </h3>
@@ -236,11 +233,11 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ───── 4. COMMERCIAL FLEET SHOWCASE ───── */}
-      <FleetShowcase />
+      {/* ───── 4. INTERACTIVE SOLUTION BLUEPRINT & PROBLEM SOLVER ───── */}
+      <SolutionBlueprintEngine />
 
-      {/* ───── 5. INSTANT ESTIMATOR WIDGET ───── */}
-      <InstantEstimator />
+      {/* ───── 5. COMMERCIAL FLEET SHOWCASE ───── */}
+      <FleetShowcase />
 
       {/* ───── 6. SELECTED PROJECTS & PROVEN TRACK RECORD ───── */}
       <section className="w-full py-20 md:py-32 border-b border-border bg-background">

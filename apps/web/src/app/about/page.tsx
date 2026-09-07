@@ -23,10 +23,10 @@ export async function generateMetadata() {
 }
 
 const STATS = [
-  { label: 'Year Founded', value: '2023' },
-  { label: 'Service Pillars', value: '3' },
+  { label: 'Year Founded', value: '2025' },
+  { label: 'Strategic Divisions', value: '3' },
   { label: 'Coverage', value: 'Pan-India' },
-  { label: 'SLA Commitment', value: '99.9%' },
+  { label: 'SLA Commitment', value: '99.99%' },
 ];
 
 const VALUES = [
@@ -92,7 +92,7 @@ export default async function AboutPage() {
               <h2 className="text-3xl font-bold text-foreground mb-6">Our Story</h2>
               <div className="prose dark:prose-invert text-muted-foreground space-y-4">
                 <p className="text-lg leading-relaxed">
-                  {profile?.longDescription || 'NextHere Services Private Limited is a registered enterprise delivering three core pillars: IT consultancy, commercial electrical installations, and motorised road freight logistics.'}
+                  {profile?.longDescription || 'NextHere Services Private Limited is a registered enterprise delivering three core strategic divisions: IT consultancy, commercial electrical installations, and motorised road freight logistics.'}
                 </p>
                 <p className="text-lg leading-relaxed">
                   Incorporated under the Companies Act, NextHere Services delivers end-to-end integration across enterprise IT systems, electrical power infrastructure, and road freight logistics — serving as a single trusted partner for complex, multi-domain operational requirements.

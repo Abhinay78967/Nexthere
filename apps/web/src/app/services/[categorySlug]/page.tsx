@@ -58,7 +58,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         title={cat.title}
         description={cat.description || ''}
         url={`/services/${categorySlug}`}
-        category="Service Pillar"
+        category="Strategic Business Division"
         capabilities={capabilities}
       />
       {/* Hero */}
@@ -72,7 +72,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           <Link href="/services" className="text-blue-400 text-sm hover:underline mb-4 inline-block">
             ← All Services
           </Link>
-          <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Service Pillar</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Strategic Business Division</p>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">{cat.title}</h1>
           {cat.description && (
             <p className="text-lg text-gray-300 max-w-2xl leading-relaxed">{cat.description}</p>
@@ -85,7 +85,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         <h2 className="text-2xl font-bold mb-10 text-foreground">Available Solutions & Capabilities</h2>
         {(!cat.services || cat.services.length === 0) ? (
           <div className="text-center py-16 bg-surface-muted rounded-2xl border border-border">
-            <p className="text-muted-foreground">Solutions under this pillar will be displayed shortly.</p>
+            <p className="text-muted-foreground">Solutions under this division will be displayed shortly.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -54,7 +54,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         items={[
           { name: 'Home', item: '/' },
           { name: 'Services', item: '/services' },
-          { name: service.category?.title || 'Pillar', item: `/services/${categorySlug}` },
+          { name: service.category?.title || 'Division', item: `/services/${categorySlug}` },
           { name: service.title, item: `/services/${categorySlug}/${serviceSlug}` },
         ]}
       />
@@ -81,7 +81,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="max-w-2xl">
               <span className="inline-block py-1 px-3 rounded-full bg-primary-foreground/10 text-sm font-semibold mb-6 uppercase tracking-wider">
-                {service.category?.title || 'Service Pillar'}
+                {service.category?.title || 'Strategic Division'}
               </span>
               <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-white drop-shadow-md">
                 {service.title}

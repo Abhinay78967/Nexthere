@@ -68,7 +68,7 @@ export function QuoteForm() {
       )}
       
       <div className="space-y-2">
-        <label htmlFor="category" className="text-sm font-semibold text-foreground">Service Pillar *</label>
+        <label htmlFor="category" className="text-sm font-semibold text-foreground">Strategic Business Division *</label>
         <select 
           id="category" 
           name="category" 
@@ -78,7 +78,7 @@ export function QuoteForm() {
           disabled={status === 'submitting'}
           className="w-full px-4 py-2.5 border border-input rounded-xl bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary text-sm font-medium"
         >
-          <option value="" disabled>Select a core service pillar...</option>
+          <option value="" disabled>Select a strategic business division...</option>
           <option value="it">💻 IT & Technology Solutions</option>
           <option value="electrical">⚡ Electrical Infrastructure</option>
           <option value="logistics">🚛 Freight & Logistics</option>

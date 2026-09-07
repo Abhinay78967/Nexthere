@@ -60,7 +60,7 @@ export default async function ServicesPage() {
             Integrated Services Across IT, Electrical & Logistics
           </h1>
           <p className="text-lg text-gray-300 max-w-2xl">
-            NextHere Services Private Limited delivers three core service pillars — built to streamline operations and provide end-to-end reliability for commercial, industrial, and institutional clients.
+            NextHere Services Private Limited delivers three core strategic divisions — built to streamline operations and provide end-to-end reliability for commercial, industrial, and institutional clients.
           </p>
         </Container>
       </div>
@@ -100,7 +100,7 @@ export default async function ServicesPage() {
                   {/* Content */}
                   <div className="lg:w-1/2 w-full space-y-6">
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Service Pillar {idx + 1}</p>
+                      <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Strategic Division {idx + 1}</p>
                       <h2 className="text-3xl md:text-4xl font-bold text-foreground">{category.title}</h2>
                     </div>
                     <p className="text-muted-foreground text-lg leading-relaxed">{category.description}</p>
